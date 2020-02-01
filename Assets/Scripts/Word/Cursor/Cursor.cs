@@ -7,13 +7,15 @@ public class Cursor : MonoBehaviour
     public Transform firstLetter;
     void Start()
     {
-        Debug.Log("yraeeeeeeeee?");
 
-        var firstLetterRenderer = firstLetter.GetComponent<Renderer>();
+        var firstLetterRenderer = firstLetter.GetComponent<MeshRenderer>();
         Vector3 position = Vector3.zero;
         position.x = (firstLetterRenderer.bounds.max.x - firstLetterRenderer.bounds.min.x) / 2;
-        transform.localPosition = position;
+        //transform.localPosition = position; //sufixint reikia
 
+        //Debug.Log(position);
+        //Debug.Log("max:" + firstLetterRenderer.bounds.max.x);
+        //Debug.Log("min:" + firstLetterRenderer.bounds.min.x);
 
         myRenderer = GetComponent<Renderer>();
         StartCoroutine(Blink());
