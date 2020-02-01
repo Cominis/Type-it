@@ -3,17 +3,17 @@ using UnityEngine;
 
 public class TextMeshToMeshCollider : MonoBehaviour
 {
-    private MeshCollider meshCollider;
-    private TextMeshPro textMeshPro;
+    private MeshCollider MeshCollider;
+    private TextMeshPro TextMeshPro;
 
     void Start()
     {
-        meshCollider = GetComponent<MeshCollider>();
-        textMeshPro = GetComponent<TextMeshPro>();
+        MeshCollider = GetComponent<MeshCollider>();
+        TextMeshPro = GetComponent<TextMeshPro>();
     }
 
     void Update()
     {
-        meshCollider.sharedMesh = textMeshPro.mesh;
+        MeshCollider.sharedMesh = TextMeshPro.mesh;
     }
 }
