@@ -1,23 +1,22 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Movement : MonoBehaviour
 {
-    public float speed;
-    private Rigidbody2D rb2d;
+    public float Speed = 1;
+    private Rigidbody Rigidbody;
 
     void Start()
     {
-        rb2d = GetComponent<Rigidbody2D>();
+        Rigidbody = GetComponent<Rigidbody>();
     }
 
     void Update()
     {
-        float moveHorizontal = Input.GetAxis ("Horizontal");
-        float moveVertical = Input.GetAxis ("Vertical");
-        Vector2 movement = new Vector2 (moveHorizontal, moveVertical);
+        float horizontalInput = Input.GetAxis("Horizontal");
+        float verticalInput = Input.GetAxis("Vertical");
 
-        rb2d.AddForce (movement * speed);
+        Vector3 movement = new Vector3(horizontalInput, verticalInput);
+
+        Rigidbody.AddForce(movement * Speed);
     }
 }
