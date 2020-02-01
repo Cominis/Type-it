@@ -16,9 +16,11 @@ GameObject:
   - component: {fileID: 7091721131965779849}
   - component: {fileID: 7091721131965779850}
   - component: {fileID: 5441340704439872023}
+  - component: {fileID: -5645736598229902690}
+  - component: {fileID: -8084602687988136338}
   m_Layer: 0
   m_Name: Letter
-  m_TagString: Untagged
+  m_TagString: FreeLetter
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -226,7 +228,7 @@ MeshCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7091721131965788275}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: ab6943944bc341e488d57a23a3d06e99, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -249,3 +251,29 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 56
   m_CollisionDetection: 0
+--- !u!114 &-5645736598229902690
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7091721131965788275}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c236a02ea4a4464a83694c5f77acfd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &-8084602687988136338
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7091721131965788275}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7163d5adf276bfa478e1e5d56a9d2e83, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 0}
+  cursor: {fileID: 5952751042556733224, guid: d1f174a56a90b2c4ab1b19ae908e33d2, type: 3}
