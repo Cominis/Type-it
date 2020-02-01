@@ -1,2 +1,2 @@
 # Type-it
-GameJam 2020 game
+GameJam 2020 game!
