@@ -16,6 +16,9 @@ public class InputHandler : MonoBehaviour
     private MeshRenderer meshRenderer;
     public GameObject cursor;
 
+    public AudioClip[] clickSounds;
+    public AudioSource audio_src;
+
 
     // Variables required for letter setup
     KeyCode theKey;
@@ -36,6 +39,8 @@ public class InputHandler : MonoBehaviour
         if ((ulong)GameObject.FindGameObjectWithTag("MainCamera").GetComponent<UnityEngine.Video.VideoPlayer>().frame == GameObject.FindGameObjectWithTag("MainCamera").GetComponent<UnityEngine.Video.VideoPlayer>().frameCount-1)
         {
             GameObject.FindGameObjectWithTag("MainCamera").GetComponent<UnityEngine.Video.VideoPlayer>().Stop();
+            GameObject.FindGameObjectWithTag("Timer").GetComponent<Timer>().ResetClock();
+            GameObject.FindGameObjectWithTag("Timer").GetComponent<Timer>().StartClock();
         }
         if (time2setup)
             SetupLetter(theLetter, theKey);
@@ -46,7 +51,12 @@ public class InputHandler : MonoBehaviour
         {
             if (Input.GetKeyDown(vKey))
             {
+
+                audio_src.clip = clickSounds[Random.Range(0, clickSounds.Length)];
+                audio_src.Play();
+
                 GameObject let = Instantiate(letter, this.transform);
+                let.GetComponent<TextMeshPro>().color = new Color(0, 0, 0, 0);
                 theKey = vKey;
                 theLetter = let;
                 time2setup = true;
@@ -69,22 +79,26 @@ public class InputHandler : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.Backspace))
             {
+                audio_src.clip = clickSounds[Random.Range(0, clickSounds.Length)];
+                audio_src.Play();
                 currentLetterPos -= transform.GetChild(transform.childCount - 1).GetComponent<MeshRenderer>().bounds.size.x + distanceBetweenLetters;
-                transform.position += new Vector3(transform.GetChild(transform.childCount - 1).GetComponent<MeshRenderer>().bounds.size.x / 2, 0, 0);
                 Destroy(transform.GetChild(transform.childCount - 1).gameObject);
+                transform.position = new Vector3(-Vector3.Distance(transform.GetChild(0).position, transform.GetChild(transform.childCount - 1).position) / 2, 0, 0);
             }
             cursor.transform.position = new Vector3(transform.GetChild(transform.childCount - 1).GetComponent<MeshRenderer>().bounds.center.x + transform.GetChild(transform.childCount - 1).GetComponent<MeshRenderer>().bounds.size.x / 2 + distanceBetweenLetters/2, cursor.transform.position.y, 0);
+            
         }
         
     }
 
     void SetupLetter(GameObject let, KeyCode vKey)
     {
-        currentLetterPos += let.GetComponent<MeshRenderer>().bounds.size.x/2;
+        if (transform.childCount > 1)
+            currentLetterPos += let.GetComponent<MeshRenderer>().bounds.size.x/2;
         let.transform.localPosition = new Vector3(currentLetterPos, 0, 0);
-        transform.position -= new Vector3(let.GetComponent<MeshRenderer>().bounds.size.x/2, 0, 0);
         currentLetterPos += let.GetComponent<MeshRenderer>().bounds.size.x / 2 + distanceBetweenLetters;
-        Debug.Log(let.GetComponent<MeshRenderer>().bounds.size);
+        let.GetComponent<TextMeshPro>().color = new Color(0, 0, 0, 1);
         time2setup = false;
+        transform.position = new Vector3(-Vector3.Distance(transform.GetChild(0).position, transform.GetChild(transform.childCount - 1).position) / 2, 0, 0);
     }
 }
