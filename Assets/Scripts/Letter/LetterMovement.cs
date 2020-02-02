@@ -10,4 +10,9 @@ public class LetterMovement : MonoBehaviour
         GetComponent<Rigidbody>().velocity = new Vector3(Random.Range(-10, 10), Random.Range(-10, -10), 0f);
         // GetComponent<Rigidbody>().AddForce(new Vector3(Random.Range(-20, 20), Random.Range(-20, -20), 0f));
     }
+
+    private void Update()
+    {
+        transform.position = new Vector3(transform.position.x, transform.position.y, 0);
+    }
 }
