@@ -36,7 +36,7 @@ public class Trigger : MonoBehaviour
     {
         if (IsToChangePosition)
         {
-            if (Vector3.Distance(transform.localPosition, ToPosition) < 0.1 && transform.eulerAngles.z < 3 && transform.eulerAngles.z > -3)
+            if (Vector3.Distance(transform.localPosition, ToPosition) < 0.1 && transform.eulerAngles.z < 2 && transform.eulerAngles.z > -2)
             {
                 IsToChangePosition = false;
 

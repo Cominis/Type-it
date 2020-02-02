@@ -724,7 +724,7 @@ VideoPlayer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1316475927}
   m_Enabled: 1
-  m_VideoClip: {fileID: 0}
+  m_VideoClip: {fileID: 32900000, guid: 6d48b723864e1aa4bbcf6df97f21c16c, type: 3}
   m_TargetCameraAlpha: 1
   m_TargetCamera3DLayout: 0
   m_TargetCamera: {fileID: 1316475929}
@@ -1049,3 +1049,4 @@ MonoBehaviour:
   mainCursor: {fileID: 5952751042556733227, guid: d1f174a56a90b2c4ab1b19ae908e33d2,
     type: 3}
   gameInput: {fileID: 62540493863266706, guid: 446e550fb4a634b4ba8bfc587ac2fa08, type: 3}
+  amountOfLettersToAdd: 20

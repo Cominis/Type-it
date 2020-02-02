@@ -36,11 +36,12 @@ public class InputHandler : MonoBehaviour
     bool time2setup = false;
     private string word;
 
+    private bool isPlaying = false;
 
     void Start()
     {
         word = "";
-        //GameObject.FindGameObjectWithTag("MainCamera").GetComponent<UnityEngine.Video.VideoPlayer>().Play();
+        GameObject.FindGameObjectWithTag("MainCamera").GetComponent<UnityEngine.Video.VideoPlayer>().Play();
         inputField = GetComponent<TextMeshPro>();
         meshRenderer = GetComponent<MeshRenderer>();
     }
@@ -48,40 +49,42 @@ public class InputHandler : MonoBehaviour
 
     void Update()
     {
-        //if ((ulong)GameObject.FindGameObjectWithTag("MainCamera").GetComponent<UnityEngine.Video.VideoPlayer>().frame == GameObject.FindGameObjectWithTag("MainCamera").GetComponent<UnityEngine.Video.VideoPlayer>().frameCount - 1)
-        //{
-        //    GameObject.FindGameObjectWithTag("MainCamera").GetComponent<UnityEngine.Video.VideoPlayer>().Stop();
-        //}
+        if ((ulong)GameObject.FindGameObjectWithTag("MainCamera").GetComponent<UnityEngine.Video.VideoPlayer>().frame == GameObject.FindGameObjectWithTag("MainCamera").GetComponent<UnityEngine.Video.VideoPlayer>().frameCount - 1)
+        {
+            GameObject.FindGameObjectWithTag("MainCamera").GetComponent<UnityEngine.Video.VideoPlayer>().Stop();
+            isPlaying = true;
+        }
         if (time2setup)
             SetupLetter(theLetter, theKey);
 
         isUpperCase = Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift);
 
-        foreach (KeyCode vKey in ascceptableLetters)
-        {
-            if (Input.GetKeyDown(vKey))
+        if (isPlaying)
+            foreach (KeyCode vKey in ascceptableLetters)
             {
-
-                audio_src.clip = clickSounds[Random.Range(0, clickSounds.Length)];
-                audio_src.Play();
-
-                GameObject let = Instantiate(letter, this.transform);
-                let.GetComponent<TextMeshPro>().color = new Color(0, 0, 0, 0);
-                theKey = vKey;
-                theLetter = let;
-                time2setup = true;
-                let.GetComponent<Rigidbody>().isKinematic = true;
-                if (!isUpperCase)
+                if (Input.GetKeyDown(vKey))
                 {
-                    let.GetComponent<TextMeshPro>().text = vKey.ToString().ToLower();
-                }
-                else
-                {
-                    let.GetComponent<TextMeshPro>().text = vKey.ToString();
-                }
 
+                    audio_src.clip = clickSounds[Random.Range(0, clickSounds.Length)];
+                    audio_src.Play();
+
+                    GameObject let = Instantiate(letter, this.transform);
+                    let.GetComponent<TextMeshPro>().color = new Color(0, 0, 0, 0);
+                    theKey = vKey;
+                    theLetter = let;
+                    time2setup = true;
+                    let.GetComponent<Rigidbody>().isKinematic = true;
+                    if (!isUpperCase)
+                    {
+                        let.GetComponent<TextMeshPro>().text = vKey.ToString().ToLower();
+                    }
+                    else
+                    {
+                        let.GetComponent<TextMeshPro>().text = vKey.ToString();
+                    }
+
+                }
             }
-        }
 
 
 
@@ -111,14 +114,6 @@ public class InputHandler : MonoBehaviour
                 trigger.IstoMove = true;
                 trigger.ToPosition = new Vector3(Random.Range(-18, 18), Random.Range(-9, 9), 0);
                 trigger.IsToChangePosition = true;
-
-                //fkey.GetComponent<MeshCollider>().enabled = false;
-                //fkey.GetComponent<TextMeshToMeshCollider>().enabled = false;
-
-
-                //fkey.GetComponent<Rigidbody>().isKinematic = false;
-                //GetComponent<Rigidbody>().AddForce(new Vector3(Random.Range(-10, 10), Random.Range(-10, 10), 0));
-                //fkey.GetComponent<LetterMovement>().TurnOnCollider();
             }
 
 
@@ -138,7 +133,7 @@ public class InputHandler : MonoBehaviour
         tim.GetComponent<Timer>().StartClock();
         tim.transform.SetParent(GameObject.FindGameObjectWithTag("MainCamera").transform);
         tim.transform.localPosition = new Vector3(-10, 5.5f, 2);
-        
+
 
 
         //GameObject curs = Instantiate(mainCursor);
@@ -165,7 +160,22 @@ public class InputHandler : MonoBehaviour
         Destroy(cursor);
         Destroy(this);
 
+        for (int i = 0; i < amountOfLettersToAdd; i++)
+        {
+            var obj = Instantiate(letter, new Vector3(Random.Range(-19, 18), Random.Range(-12, 24), 0), Quaternion.identity);
+            string randomString = ascceptableLetters[Random.Range(0, ascceptableLetters.Length - 1)].ToString();
+            obj.GetComponent<TextMeshPro>().text = Random.value < 0.5 ? randomString : randomString.ToLower();
+
+            yield return new WaitForSeconds(0.5f);
+
+            obj.GetComponent<Letter>().LetterXSize = obj.GetComponent<MeshRenderer>().bounds.size.x;
+            obj.GetComponent<LetterMovement>().Move();
+            Debug.Log(obj.GetComponent<Letter>().LetterXSize);
+        }
+
+
     }
+
     void SetupLetter(GameObject let, KeyCode vKey)
     {
         if (transform.childCount > 1)
