@@ -40,6 +40,10 @@ public class Timer : MonoBehaviour
         {
             currentTime -= Time.deltaTime;
             text.text = Mathf.Round(currentTime).ToString();
+            if (currentTime <= 0f)
+            {
+                // End Timer code
+            }
         }
     }
 }
