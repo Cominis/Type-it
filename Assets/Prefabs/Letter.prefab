@@ -18,6 +18,7 @@ GameObject:
   - component: {fileID: 5441340704439872023}
   - component: {fileID: -5645736598229902690}
   - component: {fileID: -3582499969182302549}
+  - component: {fileID: -8607266274345207602}
   m_Layer: 0
   m_Name: Letter
   m_TagString: FreeLetter
@@ -275,5 +276,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37ae22725d12a9c40801138251d9c7e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 10
-  spaceSize: 0.25
+--- !u!114 &-8607266274345207602
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7091721131965788275}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af8dd26f48e35c6419e4f4fd875e3d4e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

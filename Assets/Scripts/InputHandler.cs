@@ -1,8 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using Cinemachine;
+using System.Collections;
 using TMPro;
-using Cinemachine;
+using UnityEngine;
 
 public class InputHandler : MonoBehaviour
 {
@@ -27,6 +26,7 @@ public class InputHandler : MonoBehaviour
     public GameObject player;
     public GameObject timer;
     public GameObject mainCursor;
+    public GameObject gameInput;
 
 
     // Variables required for letter setup
@@ -37,7 +37,7 @@ public class InputHandler : MonoBehaviour
 
     void Start()
     {
-        GameObject.FindGameObjectWithTag("MainCamera").GetComponent<UnityEngine.Video.VideoPlayer>().Play();
+        //GameObject.FindGameObjectWithTag("MainCamera").GetComponent<UnityEngine.Video.VideoPlayer>().Play();
         inputField = GetComponent<TextMeshPro>();
         meshRenderer = GetComponent<MeshRenderer>();
     }
@@ -45,10 +45,10 @@ public class InputHandler : MonoBehaviour
 
     void Update()
     {
-        if ((ulong)GameObject.FindGameObjectWithTag("MainCamera").GetComponent<UnityEngine.Video.VideoPlayer>().frame == GameObject.FindGameObjectWithTag("MainCamera").GetComponent<UnityEngine.Video.VideoPlayer>().frameCount-1)
-        {
-            GameObject.FindGameObjectWithTag("MainCamera").GetComponent<UnityEngine.Video.VideoPlayer>().Stop();
-        }
+        //if ((ulong)GameObject.FindGameObjectWithTag("MainCamera").GetComponent<UnityEngine.Video.VideoPlayer>().frame == GameObject.FindGameObjectWithTag("MainCamera").GetComponent<UnityEngine.Video.VideoPlayer>().frameCount - 1)
+        //{
+        //    GameObject.FindGameObjectWithTag("MainCamera").GetComponent<UnityEngine.Video.VideoPlayer>().Stop();
+        //}
         if (time2setup)
             SetupLetter(theLetter, theKey);
 
@@ -76,11 +76,11 @@ public class InputHandler : MonoBehaviour
                 {
                     let.GetComponent<TextMeshPro>().text = vKey.ToString();
                 }
-                
+
             }
         }
 
-        
+
 
         if (transform.childCount > 0)
         {
@@ -92,49 +92,75 @@ public class InputHandler : MonoBehaviour
                 Destroy(transform.GetChild(transform.childCount - 1).gameObject);
                 transform.position = new Vector3(-Vector3.Distance(transform.GetChild(0).position, transform.GetChild(transform.childCount - 1).position) / 2, 0, 0);
             }
-            cursor.transform.position = new Vector3(transform.GetChild(transform.childCount - 1).GetComponent<MeshRenderer>().bounds.center.x + transform.GetChild(transform.childCount - 1).GetComponent<MeshRenderer>().bounds.size.x / 2 + distanceBetweenLetters/2, cursor.transform.position.y, 0);
-            
+            cursor.transform.position = new Vector3(transform.GetChild(transform.childCount - 1).GetComponent<MeshRenderer>().bounds.center.x + transform.GetChild(transform.childCount - 1).GetComponent<MeshRenderer>().bounds.size.x / 2 + distanceBetweenLetters / 2, cursor.transform.position.y, 0);
+
         }
-       
+
         if (Input.GetKeyDown(KeyCode.Return))
         {
-            for (int i = transform.childCount-1; i > 0; i--)
+            for (int i = transform.childCount - 1; i > 0; i--)
             {
                 Transform fkey = transform.GetChild(i);
                 fkey.SetParent(null);
-                Vector3 startingForce = new Vector3(Random.Range(-100, 100), Random.Range(-100, 100), 0);
-                startingForce.Normalize();
-                startingForce *= pushForce;
-                fkey.GetComponent<Rigidbody>().isKinematic = false;
-                fkey.GetComponent<Rigidbody>().AddForce(startingForce);
-                fkey.GetComponent<Rigidbody>().angularVelocity = Random.insideUnitSphere * pushRotation;
+                var trigger = fkey.GetComponent<Trigger>();
+                trigger.ToPosition = new Vector3(Random.Range(-19, 18), Random.Range(-12, 24), 0);
+                trigger.IsToChangePosition = true;
+                //Vector3 startingForce = new Vector3(0, -4, 0);//new Vector3(Random.Range(-100, 100), Random.Range(-100, 100), 0);
+
+                //startingForce.Normalize();
+                //startingForce *= pushForce;
+                //fkey.GetComponent<Rigidbody>().isKinematic = false;
+                //fkey.GetComponent<Rigidbody>().AddForce(startingForce);
+                //fkey.GetComponent<Rigidbody>().angularVelocity = Random.insideUnitSphere * pushRotation;
             }
 
-            cimMachine.SetActive(true);
-            cimMachine.GetComponent<CinemachineVirtualCamera>().Follow = Instantiate(player).transform;
-            GameObject tim = Instantiate(timer);
-            tim.GetComponent<Timer>().StartClock();
-            tim.transform.SetParent(GameObject.FindGameObjectWithTag("MainCamera").transform);
-            tim.transform.localPosition = new Vector3(-10, 5.5f, 2);
 
-            GameObject curs = Instantiate(mainCursor);
-            curs.transform.SetParent(GameObject.FindGameObjectWithTag("Player").transform);
-            curs.GetComponent<Cursor>().firstLetter = transform.GetChild(0);
-            transform.GetChild(0).SetParent(GameObject.FindGameObjectWithTag("Player").transform);
-            Destroy(cursor);
-            Destroy(this);
+
+            StartCoroutine(StartGame());
         }
 
     }
 
+    IEnumerator StartGame()
+    {
+        yield return new WaitForSeconds(1f);
+        cimMachine.SetActive(true);
+        var playerTransform = Instantiate(player).transform;
+        cimMachine.GetComponent<CinemachineVirtualCamera>().Follow = playerTransform;
+        GameObject tim = Instantiate(timer);
+        tim.GetComponent<Timer>().StartClock();
+        tim.transform.SetParent(GameObject.FindGameObjectWithTag("MainCamera").transform);
+        tim.transform.localPosition = new Vector3(-10, 5.5f, 2);
+
+
+
+        //GameObject curs = Instantiate(mainCursor);
+        //curs.transform.SetParent(GameObject.FindGameObjectWithTag("Player").transform);
+        //curs.GetComponent<Cursor>().firstLetter = transform.GetChild(0);
+
+        var letter = transform.GetChild(0);
+
+        var firstLetterRenderer = letter.GetComponent<MeshRenderer>();
+        playerTransform.GetChild(0).localPosition = new Vector3(firstLetterRenderer.bounds.size.x / 2 + 0.25f, 0, 0);
+        playerTransform.GetComponent<LetterPositioning>().CurrentPos = new Vector3(firstLetterRenderer.bounds.size.x / 2 + 0.25f, 0, 0);
+
+        letter.SetParent(GameObject.FindGameObjectWithTag("Player").transform, false);
+        letter.tag = Constants.LOCKED_LETTER;
+
+        Instantiate(gameInput);
+        Destroy(cursor);
+        Destroy(this);
+
+    }
     void SetupLetter(GameObject let, KeyCode vKey)
     {
         if (transform.childCount > 1)
-            currentLetterPos += let.GetComponent<MeshRenderer>().bounds.size.x/2;
+            currentLetterPos += let.GetComponent<MeshRenderer>().bounds.size.x / 2;
         let.transform.localPosition = new Vector3(currentLetterPos, 0, 0);
         currentLetterPos += let.GetComponent<MeshRenderer>().bounds.size.x / 2 + distanceBetweenLetters;
         let.GetComponent<TextMeshPro>().color = new Color(0, 0, 0, 1);
         time2setup = false;
         transform.position = new Vector3(-Vector3.Distance(transform.GetChild(0).position, transform.GetChild(transform.childCount - 1).position) / 2, 0, 0);
+        let.GetComponent<Letter>().LetterXSize = let.GetComponent<MeshRenderer>().bounds.size.x;
     }
 }

@@ -2,7 +2,7 @@
 
 public class Movement : MonoBehaviour
 {
-    public float Speed = 1;
+    public float Speed = 4;
     private Rigidbody Rigidbody;
 
     void Start()
@@ -17,6 +17,6 @@ public class Movement : MonoBehaviour
 
         Vector3 movement = new Vector3(horizontalInput, verticalInput);
 
-        Rigidbody.AddForce(movement * Speed);
+        Rigidbody.velocity = movement * Speed;
     }
 }

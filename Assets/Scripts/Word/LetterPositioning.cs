@@ -20,7 +20,7 @@ public class LetterPositioning : MonoBehaviour
         letter.transform.GetComponent<Rigidbody>().isKinematic = true;
         //letterRB.constraints = RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezePositionZ | RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
 
-        var letterXSize = letter.transform.GetComponent<MeshRenderer>().bounds.size.x / 2f;
+        var letterXSize = letter.GetComponent<Letter>().LetterXSize / 2;
         CurrentPos = new Vector3(CurrentPos.x + letterXSize, 0, 0);
 
         var letterTrigger = letter.GetComponent<Trigger>();
