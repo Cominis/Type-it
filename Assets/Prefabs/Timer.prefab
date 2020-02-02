@@ -220,4 +220,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentTime: 10
   isCountingDown: 0
-  startingTime: 60
+  startingTime: 30
+  right: {fileID: 6234889143392212854, guid: 500a63c37f068b0419ce67fc89ccda66, type: 3}
+  wrong: {fileID: 445303098277982693, guid: 941487c82031e444e8317adb0b130472, type: 3}
+  word: 
