@@ -14,7 +14,6 @@ public class LetterPositioning : MonoBehaviour
     public void SetLetterPosition(char letterKey, GameObject letter)
     {
         GameInput.RemoveItem(letterKey, letter);
-
         letter.transform.tag = Constants.LOCKED_LETTER;
         letter.transform.SetParent(transform);
         letter.transform.GetComponent<Rigidbody>().isKinematic = true;

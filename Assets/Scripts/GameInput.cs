@@ -16,11 +16,9 @@ public class GameInput : MonoBehaviour
     public static void AddItem(char key, GameObject letter)
     {
         List<GameObject> list;
-        Debug.Log("raktas: " + key);
         if (items.ContainsKey(key))
         {
             list = items[key];
-            Debug.Log("");
             if (list != null)
             {
                 list.Add(letter);

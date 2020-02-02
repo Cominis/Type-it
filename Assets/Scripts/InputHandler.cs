@@ -103,15 +103,18 @@ public class InputHandler : MonoBehaviour
                 Transform fkey = transform.GetChild(i);
                 fkey.SetParent(null);
                 var trigger = fkey.GetComponent<Trigger>();
-                trigger.ToPosition = new Vector3(Random.Range(-19, 18), Random.Range(-12, 24), 0);
-                trigger.IsToChangePosition = true;
-                //Vector3 startingForce = new Vector3(0, -4, 0);//new Vector3(Random.Range(-100, 100), Random.Range(-100, 100), 0);
 
-                //startingForce.Normalize();
-                //startingForce *= pushForce;
+                trigger.IstoMove = true;
+                trigger.ToPosition = new Vector3(Random.Range(-18, 18), Random.Range(-9, 9), 0);
+                trigger.IsToChangePosition = true;
+
+                //fkey.GetComponent<MeshCollider>().enabled = false;
+                //fkey.GetComponent<TextMeshToMeshCollider>().enabled = false;
+
+
                 //fkey.GetComponent<Rigidbody>().isKinematic = false;
-                //fkey.GetComponent<Rigidbody>().AddForce(startingForce);
-                //fkey.GetComponent<Rigidbody>().angularVelocity = Random.insideUnitSphere * pushRotation;
+                //GetComponent<Rigidbody>().AddForce(new Vector3(Random.Range(-10, 10), Random.Range(-10, 10), 0));
+                //fkey.GetComponent<LetterMovement>().TurnOnCollider();
             }
 
 
@@ -144,8 +147,12 @@ public class InputHandler : MonoBehaviour
         playerTransform.GetChild(0).localPosition = new Vector3(firstLetterRenderer.bounds.size.x / 2 + 0.25f, 0, 0);
         playerTransform.GetComponent<LetterPositioning>().CurrentPos = new Vector3(firstLetterRenderer.bounds.size.x / 2 + 0.25f, 0, 0);
 
-        letter.SetParent(GameObject.FindGameObjectWithTag("Player").transform, false);
+        letter.SetParent(GameObject.FindGameObjectWithTag("Player").transform);
         letter.tag = Constants.LOCKED_LETTER;
+
+        var trigger = letter.GetComponent<Trigger>();
+        trigger.ToPosition = new Vector3(0, 0, 0);
+        trigger.IsToChangePosition = true;
 
         Instantiate(gameInput);
         Destroy(cursor);
