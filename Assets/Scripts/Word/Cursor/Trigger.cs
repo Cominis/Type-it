@@ -1,25 +1,20 @@
-﻿using System;
-using TMPro;
+﻿using TMPro;
 using UnityEngine;
 
 public class Trigger : MonoBehaviour
 {
-    public float speed;
-    private GameObject cursor;
-    private GameObject player;
-    [NonSerialized] public bool isTrue = false;
-    private bool isTrue2 = false;
-    private Vector3 toPosition;
-    private char itemKey;
-    public float spaceSize;
+    public float Speed { get; set; } = 4f;
+    public Vector3 ToPosition { get; set; }
+    public bool IsToChangePosition { get; set; } = false;
+    public char ThisLetterKey { get; set; }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Zone" && transform.tag == Constants.FREE_LETTER)
         {
-            itemKey = transform.GetComponent<TextMeshPro>().text[0];
-            GameInput.AddItem(itemKey, gameObject);
-            Debug.Log(itemKey);
+            ThisLetterKey = transform.GetComponent<TextMeshPro>().text[0];
+            GameInput.AddItem(ThisLetterKey, gameObject);
+            //Debug.Log(ThisLetterKey);
         }
     }
 
@@ -27,62 +22,34 @@ public class Trigger : MonoBehaviour
     {
         if (other.tag == "Zone" && transform.tag == Constants.FREE_LETTER)
         {
-            GameInput.RemoveItem(itemKey, gameObject);
+            GameInput.RemoveItem(ThisLetterKey, gameObject);
         }
     }
 
-    private void Start()
+    public void RemoveLetter(char letterKey, GameObject letter)
     {
-        player = GameObject.FindGameObjectWithTag("Player");
-        cursor = GameObject.FindGameObjectWithTag("Cursor");
+        GameInput.RemoveItem(letterKey, letter);
     }
+
     private void Update()
     {
-        if (isTrue)
+        if (IsToChangePosition)
         {
-            GameInput.RemoveItem(itemKey, gameObject);
-
-            transform.tag = Constants.LOCKED_LETTER;
-
-            var rg = transform.GetComponent<Rigidbody>();
-            rg.constraints = RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezePositionZ | RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
-
-            //xLength = transform.GetComponent<Renderer>().bounds.size.x / 2;
-            var xLength = transform.GetComponent<MeshCollider>().bounds.size.x / 2f;
-            transform.SetParent(player.transform);
-
-            //change position of letter that entered the zone
-            var localPosition = Vector3.zero;
-            localPosition.x = cursor.transform.localPosition.x + xLength + spaceSize;
-            toPosition = localPosition;
-
-            isTrue2 = true;
-
-
-            localPosition.x += xLength;
-            cursor.transform.localPosition = localPosition;
-
-
-            isTrue = false;
-        }
-
-        if (isTrue2)
-        {
-            if (Vector3.Distance(transform.localPosition, toPosition) < 0.1 && transform.eulerAngles.z < 3 && transform.eulerAngles.z > -3)
+            if (Vector3.Distance(transform.localPosition, ToPosition) < 0.01 && transform.eulerAngles.z < 3 && transform.eulerAngles.z > -3)
             {
-                isTrue2 = false;
-                var collider = player.GetComponent<BoxCollider>();
+                IsToChangePosition = false;
+                //var collider = player.GetComponent<BoxCollider>();
 
-                var size = collider.size;
-                var center = collider.center;
+                //var size = collider.size;
+                //var center = collider.center;
 
-                var length = transform.GetComponent<MeshCollider>().bounds.size.x;
+                //var length = transform.GetComponent<MeshRenderer>().bounds.size.x;
 
-                collider.size = new Vector3(size.x + length, size.y, size.z);
-                collider.center = new Vector3(length / 2f + center.x, center.y, center.z);
+                //collider.size = new Vector3(size.x + length, size.y, size.z);
+                //collider.center = new Vector3(length / 2f + center.x, center.y, center.z);
             }
-            transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0, 0, 0), speed * Time.deltaTime);
-            transform.localPosition = Vector3.MoveTowards(transform.localPosition, toPosition, speed * Time.deltaTime);
+            transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0, 0, 0), Speed * Time.deltaTime);
+            transform.localPosition = Vector3.MoveTowards(transform.localPosition, ToPosition, Speed * Time.deltaTime);
         }
     }
 }

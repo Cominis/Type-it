@@ -27,8 +27,7 @@ public class Cursor : MonoBehaviour
     {
         yield return new WaitForSeconds(0.2f);
         var firstLetterRenderer = firstLetter.GetComponent<MeshRenderer>();
-        Vector3 position = Vector3.zero;
-        position.x = firstLetterRenderer.bounds.size.x / 2;
+        Vector3 position = new Vector3(firstLetterRenderer.bounds.size.x / 2 + 0.25f, 0, 0);
         transform.localPosition = position;
     }
 }

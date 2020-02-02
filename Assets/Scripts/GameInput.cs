@@ -6,9 +6,11 @@ public class GameInput : MonoBehaviour
     private static Dictionary<char, List<GameObject>> items;
     private bool isUpperCase;
     public KeyCode[] ascceptableLetters;
+    private LetterPositioning LetterPositioning { get; set; }
     private void Start()
     {
         items = new Dictionary<char, List<GameObject>>();
+        LetterPositioning = GameObject.FindGameObjectWithTag("Player").GetComponent<LetterPositioning>();
     }
 
     public static void AddItem(char key, GameObject letter)
@@ -38,15 +40,9 @@ public class GameInput : MonoBehaviour
 
     public static void RemoveItem(char key, GameObject letter)
     {
-        Debug.Log("in remove>>>" + key);
         if (items.ContainsKey(key))
         {
             items[key].Clear();
-            //list.RemoveAt(0);
-            //items[key] = list;
-            //Debug.Log("REMOVING>>>");
-            //if (items[key].Remove(letter))
-            Debug.Log("REMOVED");
 
         }
     }
@@ -62,23 +58,23 @@ public class GameInput : MonoBehaviour
                 if (!isUpperCase)
                 {
                     string keyString = vKey.ToString().ToLower();
-                    char key = keyString[0];
-                    Debug.Log("key: " + key);
-                    if (items.ContainsKey(key))
-                        foreach (var gameObject in items[key])
+                    char letterKey = keyString[0];
+
+                    if (items.ContainsKey(letterKey))
+                        foreach (var gameObject in items[letterKey])
                         {
-                            gameObject.GetComponent<Trigger>().isTrue = true;
+                            LetterPositioning.SetLetterPosition(letterKey, gameObject);
                         }
                 }
                 else
                 {
                     string keyString = vKey.ToString();
-                    char key = keyString[0];
-                    Debug.Log("key: " + key);
-                    if (items.ContainsKey(key))
-                        foreach (var gameObject in items[key])
+                    char letterKey = keyString[0];
+
+                    if (items.ContainsKey(letterKey))
+                        foreach (var gameObject in items[letterKey])
                         {
-                            gameObject.GetComponent<Trigger>().isTrue = true;
+                            LetterPositioning.SetLetterPosition(letterKey, gameObject);
                         }
                 }
             }
