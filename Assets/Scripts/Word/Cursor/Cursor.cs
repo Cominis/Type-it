@@ -7,18 +7,9 @@ public class Cursor : MonoBehaviour
     public Transform firstLetter;
     void Start()
     {
-
-        var firstLetterRenderer = firstLetter.GetComponent<MeshRenderer>();
-        Vector3 position = Vector3.zero;
-        position.x = (firstLetterRenderer.bounds.max.x - firstLetterRenderer.bounds.min.x) / 2;
-        //transform.localPosition = position; //sufixint reikia
-
-        //Debug.Log(position);
-        //Debug.Log("max:" + firstLetterRenderer.bounds.max.x);
-        //Debug.Log("min:" + firstLetterRenderer.bounds.min.x);
-
         myRenderer = GetComponent<Renderer>();
         StartCoroutine(Blink());
+        StartCoroutine(SetCursor());
     }
 
     IEnumerator Blink()
@@ -30,5 +21,14 @@ public class Cursor : MonoBehaviour
             myRenderer.enabled = isEnabled;
             yield return new WaitForSeconds(0.4f);
         }
+    }
+
+    IEnumerator SetCursor()
+    {
+        yield return new WaitForSeconds(0.2f);
+        var firstLetterRenderer = firstLetter.GetComponent<MeshRenderer>();
+        Vector3 position = Vector3.zero;
+        position.x = firstLetterRenderer.bounds.size.x / 2;
+        transform.localPosition = position;
     }
 }

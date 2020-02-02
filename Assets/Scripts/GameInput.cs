@@ -38,9 +38,16 @@ public class GameInput : MonoBehaviour
 
     public static void RemoveItem(char key, GameObject letter)
     {
+        Debug.Log("in remove>>>" + key);
         if (items.ContainsKey(key))
         {
-            items[key].Remove(letter);
+            items[key].Clear();
+            //list.RemoveAt(0);
+            //items[key] = list;
+            //Debug.Log("REMOVING>>>");
+            //if (items[key].Remove(letter))
+            Debug.Log("REMOVED");
+
         }
     }
 

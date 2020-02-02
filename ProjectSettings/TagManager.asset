@@ -9,6 +9,7 @@ TagManager:
   - LockedLetter
   - Zone
   - Cursor
+  - Timer
   layers:
   - Default
   - TransparentFX
