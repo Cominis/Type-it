@@ -41,7 +41,7 @@ public class InputHandler : MonoBehaviour
     void Start()
     {
         word = "";
-        GameObject.FindGameObjectWithTag("MainCamera").GetComponent<UnityEngine.Video.VideoPlayer>().Play();
+        //GameObject.FindGameObjectWithTag("MainCamera").GetComponent<UnityEngine.Video.VideoPlayer>().Play();
         inputField = GetComponent<TextMeshPro>();
         meshRenderer = GetComponent<MeshRenderer>();
     }
@@ -49,11 +49,11 @@ public class InputHandler : MonoBehaviour
 
     void Update()
     {
-        if ((ulong)GameObject.FindGameObjectWithTag("MainCamera").GetComponent<UnityEngine.Video.VideoPlayer>().frame == GameObject.FindGameObjectWithTag("MainCamera").GetComponent<UnityEngine.Video.VideoPlayer>().frameCount - 1)
-        {
-            GameObject.FindGameObjectWithTag("MainCamera").GetComponent<UnityEngine.Video.VideoPlayer>().Stop();
-            isPlaying = true;
-        }
+        //if ((ulong)GameObject.FindGameObjectWithTag("MainCamera").GetComponent<UnityEngine.Video.VideoPlayer>().frame == GameObject.FindGameObjectWithTag("MainCamera").GetComponent<UnityEngine.Video.VideoPlayer>().frameCount - 1)
+        //{
+        //    GameObject.FindGameObjectWithTag("MainCamera").GetComponent<UnityEngine.Video.VideoPlayer>().Stop();
+        isPlaying = true;
+        //}
         if (time2setup)
             SetupLetter(theLetter, theKey);
 
@@ -69,7 +69,7 @@ public class InputHandler : MonoBehaviour
                     audio_src.Play();
 
                     GameObject let = Instantiate(letter, this.transform);
-                    let.GetComponent<TextMeshPro>().color = new Color(0, 0, 0, 0);
+                    let.GetComponent<TextMeshPro>().color = new Color(let.GetComponent<TextMeshPro>().color.r, let.GetComponent<TextMeshPro>().color.g, let.GetComponent<TextMeshPro>().color.b, 0);
                     theKey = vKey;
                     theLetter = let;
                     time2setup = true;
@@ -119,6 +119,7 @@ public class InputHandler : MonoBehaviour
 
 
             StartCoroutine(StartGame());
+            CreateLetters();
         }
 
     }
@@ -140,19 +141,19 @@ public class InputHandler : MonoBehaviour
         //curs.transform.SetParent(GameObject.FindGameObjectWithTag("Player").transform);
         //curs.GetComponent<Cursor>().firstLetter = transform.GetChild(0);
 
-        var letter = transform.GetChild(0);
+        var letter2 = transform.GetChild(0);
 
-        word = letter.GetComponent<TextMeshPro>().text + word;
+        word = letter2.GetComponent<TextMeshPro>().text + word;
         tim.GetComponent<Timer>().word = word;
 
-        var firstLetterRenderer = letter.GetComponent<MeshRenderer>();
+        var firstLetterRenderer = letter2.GetComponent<MeshRenderer>();
         playerTransform.GetChild(0).localPosition = new Vector3(firstLetterRenderer.bounds.size.x / 2 + 0.25f, 0, 0);
         playerTransform.GetComponent<LetterPositioning>().CurrentPos = new Vector3(firstLetterRenderer.bounds.size.x / 2 + 0.25f, 0, 0);
 
-        letter.SetParent(GameObject.FindGameObjectWithTag("Player").transform);
-        letter.tag = Constants.LOCKED_LETTER;
+        letter2.SetParent(GameObject.FindGameObjectWithTag("Player").transform);
+        letter2.tag = Constants.LOCKED_LETTER;
 
-        var trigger = letter.GetComponent<Trigger>();
+        var trigger = letter2.GetComponent<Trigger>();
         trigger.ToPosition = new Vector3(0, 0, 0);
         trigger.IsToChangePosition = true;
 
@@ -160,20 +161,26 @@ public class InputHandler : MonoBehaviour
         Destroy(cursor);
         Destroy(this);
 
+    }
+
+    void CreateLetters()
+    {
         for (int i = 0; i < amountOfLettersToAdd; i++)
         {
-            var obj = Instantiate(letter, new Vector3(Random.Range(-19, 18), Random.Range(-12, 24), 0), Quaternion.identity);
+            var obj = Instantiate(letter, new Vector3(Random.Range(-16, 37), Random.Range(-6, 17), 0), Quaternion.identity);
             string randomString = ascceptableLetters[Random.Range(0, ascceptableLetters.Length - 1)].ToString();
             obj.GetComponent<TextMeshPro>().text = Random.value < 0.5 ? randomString : randomString.ToLower();
 
-            yield return new WaitForSeconds(0.5f);
-
-            obj.GetComponent<Letter>().LetterXSize = obj.GetComponent<MeshRenderer>().bounds.size.x;
-            obj.GetComponent<LetterMovement>().Move();
-            Debug.Log(obj.GetComponent<Letter>().LetterXSize);
+            StartCoroutine(CreateLetters2(obj));
         }
+    }
 
+    IEnumerator CreateLetters2(GameObject obj)
+    {
+        yield return new WaitForSeconds(0.5f);
 
+        obj.GetComponent<Letter>().LetterXSize = obj.GetComponent<MeshRenderer>().bounds.size.x;
+        obj.GetComponent<LetterMovement>().Move();
     }
 
     void SetupLetter(GameObject let, KeyCode vKey)
@@ -182,7 +189,7 @@ public class InputHandler : MonoBehaviour
             currentLetterPos += let.GetComponent<MeshRenderer>().bounds.size.x / 2;
         let.transform.localPosition = new Vector3(currentLetterPos, 0, 0);
         currentLetterPos += let.GetComponent<MeshRenderer>().bounds.size.x / 2 + distanceBetweenLetters;
-        let.GetComponent<TextMeshPro>().color = new Color(0, 0, 0, 1);
+        let.GetComponent<TextMeshPro>().color = new Color(let.GetComponent<TextMeshPro>().color.r, let.GetComponent<TextMeshPro>().color.g, let.GetComponent<TextMeshPro>().color.b, 1);
         time2setup = false;
         transform.position = new Vector3(-Vector3.Distance(transform.GetChild(0).position, transform.GetChild(transform.childCount - 1).position) / 2, 0, 0);
         let.GetComponent<Letter>().LetterXSize = let.GetComponent<MeshRenderer>().bounds.size.x;

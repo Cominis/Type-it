@@ -194,8 +194,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 870604711}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.526, y: 5.752, z: 0}
-  m_LocalScale: {x: 1.0254179, y: 1.388556, z: 1}
+  m_LocalPosition: {x: 9.8, y: 5.02, z: 0}
+  m_LocalScale: {x: 1.4363999, y: 1.0179, z: 1}
   m_Children:
   - {fileID: 819271852}
   m_Father: {fileID: 0}
@@ -293,7 +293,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: eb9353fbd01c5a84db102d49bd8190e0, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.95686275, g: 0.3647059, b: 0.4, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -393,7 +393,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: d691caf1efd0fa045a3cc68b2f4e106c, type: 3}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Color: {r: 0.4, g: 0, b: 0.6, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -668,7 +668,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: 1, g: 1, b: 1, a: 0}
+  m_BackGroundColor: {r: 0.95686275, g: 0.3647059, b: 0.4, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -724,7 +724,7 @@ VideoPlayer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1316475927}
   m_Enabled: 1
-  m_VideoClip: {fileID: 32900000, guid: 6d48b723864e1aa4bbcf6df97f21c16c, type: 3}
+  m_VideoClip: {fileID: 0}
   m_TargetCameraAlpha: 1
   m_TargetCamera3DLayout: 0
   m_TargetCamera: {fileID: 1316475929}
@@ -1049,4 +1049,4 @@ MonoBehaviour:
   mainCursor: {fileID: 5952751042556733227, guid: d1f174a56a90b2c4ab1b19ae908e33d2,
     type: 3}
   gameInput: {fileID: 62540493863266706, guid: 446e550fb4a634b4ba8bfc587ac2fa08, type: 3}
-  amountOfLettersToAdd: 20
+  amountOfLettersToAdd: 30
