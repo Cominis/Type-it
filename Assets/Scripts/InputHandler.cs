@@ -27,16 +27,19 @@ public class InputHandler : MonoBehaviour
     public GameObject timer;
     public GameObject mainCursor;
     public GameObject gameInput;
+    public int amountOfLettersToAdd;
 
 
     // Variables required for letter setup
     KeyCode theKey;
     GameObject theLetter;
     bool time2setup = false;
+    private string word;
 
 
     void Start()
     {
+        word = "";
         //GameObject.FindGameObjectWithTag("MainCamera").GetComponent<UnityEngine.Video.VideoPlayer>().Play();
         inputField = GetComponent<TextMeshPro>();
         meshRenderer = GetComponent<MeshRenderer>();
@@ -101,6 +104,7 @@ public class InputHandler : MonoBehaviour
             for (int i = transform.childCount - 1; i > 0; i--)
             {
                 Transform fkey = transform.GetChild(i);
+                word = fkey.GetComponent<TextMeshPro>().text + word;
                 fkey.SetParent(null);
                 var trigger = fkey.GetComponent<Trigger>();
 
@@ -134,7 +138,7 @@ public class InputHandler : MonoBehaviour
         tim.GetComponent<Timer>().StartClock();
         tim.transform.SetParent(GameObject.FindGameObjectWithTag("MainCamera").transform);
         tim.transform.localPosition = new Vector3(-10, 5.5f, 2);
-
+        
 
 
         //GameObject curs = Instantiate(mainCursor);
@@ -142,6 +146,9 @@ public class InputHandler : MonoBehaviour
         //curs.GetComponent<Cursor>().firstLetter = transform.GetChild(0);
 
         var letter = transform.GetChild(0);
+
+        word = letter.GetComponent<TextMeshPro>().text + word;
+        tim.GetComponent<Timer>().word = word;
 
         var firstLetterRenderer = letter.GetComponent<MeshRenderer>();
         playerTransform.GetChild(0).localPosition = new Vector3(firstLetterRenderer.bounds.size.x / 2 + 0.25f, 0, 0);
