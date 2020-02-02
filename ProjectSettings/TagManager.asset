@@ -7,6 +7,8 @@ TagManager:
   - Wall
   - FreeLetter
   - LockedLetter
+  - Zone
+  - Cursor
   - Timer
   layers:
   - Default
@@ -17,7 +19,7 @@ TagManager:
   - UI
   - 
   - 
-  - 
+  - CameraBoundary
   - 
   - 
   - 

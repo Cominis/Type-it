@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5952751042556733226}
   m_Layer: 0
   m_Name: Cursor
-  m_TagString: Untagged
+  m_TagString: Cursor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -95,6 +95,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e1397297e7b35640bd399cb2774c3e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  firstLetter: {fileID: 0}
 --- !u!1 &5952751043473650027
 GameObject:
   m_ObjectHideFlags: 0
@@ -106,9 +107,10 @@ GameObject:
   - component: {fileID: 5952751043473650026}
   - component: {fileID: 5952751043473650024}
   - component: {fileID: 5952751043473650025}
+  - component: {fileID: 7856200111954810796}
   m_Layer: 0
   m_Name: Zone
-  m_TagString: Untagged
+  m_TagString: Zone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -189,3 +191,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 595f403812c578d4f82b167a59e101a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!135 &7856200111954810796
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5952751043473650027}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 3.785
+  m_Center: {x: 0, y: 0, z: 0}

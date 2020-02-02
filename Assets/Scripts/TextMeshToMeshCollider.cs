@@ -10,6 +10,7 @@ public class TextMeshToMeshCollider : MonoBehaviour
     {
         MeshCollider = GetComponent<MeshCollider>();
         TextMeshPro = GetComponent<TextMeshPro>();
+        //MeshCollider.sharedMesh = TextMeshPro.mesh;
     }
 
     void Update()
