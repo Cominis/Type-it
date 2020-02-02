@@ -221,6 +221,7 @@ MonoBehaviour:
   currentTime: 10
   isCountingDown: 0
   startingTime: 30
+  letter: {fileID: 7091721131965788275, guid: c006e9a4dc51c5e4f927a12b4eee654b, type: 3}
   right: {fileID: 6234889143392212854, guid: 500a63c37f068b0419ce67fc89ccda66, type: 3}
   wrong: {fileID: 445303098277982693, guid: 941487c82031e444e8317adb0b130472, type: 3}
   word: 

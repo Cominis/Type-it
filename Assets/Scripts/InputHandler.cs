@@ -97,6 +97,10 @@ public class InputHandler : MonoBehaviour
                 currentLetterPos -= transform.GetChild(transform.childCount - 1).GetComponent<MeshRenderer>().bounds.size.x + distanceBetweenLetters;
                 Destroy(transform.GetChild(transform.childCount - 1).gameObject);
                 transform.position = new Vector3(-Vector3.Distance(transform.GetChild(0).position, transform.GetChild(transform.childCount - 1).position) / 2, 0, 0);
+                if (transform.childCount == 0)
+                {
+                    transform.position = Vector3.zero;
+                }
             }
             cursor.transform.position = new Vector3(transform.GetChild(transform.childCount - 1).GetComponent<MeshRenderer>().bounds.center.x + transform.GetChild(transform.childCount - 1).GetComponent<MeshRenderer>().bounds.size.x / 2 + distanceBetweenLetters / 2, cursor.transform.position.y, 0);
 
@@ -166,7 +170,7 @@ public class InputHandler : MonoBehaviour
             string randomString = ascceptableLetters[Random.Range(0, ascceptableLetters.Length - 1)].ToString();
             obj.GetComponent<TextMeshPro>().text = Random.value < 0.5 ? randomString : randomString.ToLower();
 
-            yield return new WaitForSeconds(0.5f);
+            //yield return new WaitForSeconds(0.01f);
 
             obj.GetComponent<Letter>().LetterXSize = obj.GetComponent<MeshRenderer>().bounds.size.x;
             obj.GetComponent<LetterMovement>().Move();
