@@ -16,6 +16,7 @@ public class Timer : MonoBehaviour
     private void Start()
     {
         text = GetComponent<TextMeshPro>();
+        currentTime = startingTime;
     }
 
     public void Stop()
