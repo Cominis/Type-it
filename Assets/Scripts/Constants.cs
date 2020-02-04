@@ -39,4 +39,22 @@ public static class Constants
         KeyCode.Y,
         KeyCode.Z,
     };
+
+    public static List<Theme> Themes { get; set; } = new List<Theme>()
+    {
+        new Theme(0x660099, 0xffffff),
+        new Theme(0x44ffee, 0x22aa33),
+    };
+}
+
+public class Theme
+{
+    public int BackgroundColor { get; set; }
+    public int TextColor { get; set; }
+
+    public Theme(int backgroundColor, int textColor)
+    {
+        BackgroundColor = backgroundColor;
+        TextColor = textColor;
+    }
 }

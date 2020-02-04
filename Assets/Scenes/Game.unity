@@ -252,6 +252,7 @@ GameObject:
   - component: {fileID: 1238389548}
   - component: {fileID: 1238389547}
   - component: {fileID: 1238389546}
+  - component: {fileID: 1238389549}
   m_Layer: 0
   m_Name: GameProcess
   m_TagString: Untagged
@@ -305,6 +306,26 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1238389544}
   m_Mesh: {fileID: 0}
+--- !u!114 &1238389549
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1238389544}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04932d838330261408a777c1078499d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wall: {fileID: 918991359845223085, guid: a84f704298b99b44ca766a52515a447d, type: 3}
+  correctMark: {fileID: 6234889143392212854, guid: 500a63c37f068b0419ce67fc89ccda66,
+    type: 3}
+  wrongMark: {fileID: 445303098277982693, guid: 941487c82031e444e8317adb0b130472,
+    type: 3}
+  letter: {fileID: 5157849803798749750, guid: 913d0e896954c4e4d811825bf950ff39, type: 3}
+  timer: {fileID: 540333841424797016, guid: c116de791509a6c469f97fb1416416ad, type: 3}
+  cursor: {fileID: 3862325084457709403, guid: ce5d3fbb3dcdc7c4b847235d0052ed4d, type: 3}
 --- !u!224 &1238389550
 RectTransform:
   m_ObjectHideFlags: 0
