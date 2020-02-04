@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
@@ -12,7 +11,7 @@ public class GameEnd : MonoBehaviour
 
     private void Update()
     {
-        
+
     }
     public void EndGame()
     {
@@ -24,7 +23,10 @@ public class GameEnd : MonoBehaviour
             Destroy(looseLetter);
 
         GameObject.FindGameObjectWithTag("Cursor").SetActive(false);
-        GameObject.FindGameObjectWithTag("Player").GetComponent<Movement>().enabled = false;
+        var player = GameObject.FindGameObjectWithTag("Player");
+
+        player.GetComponent<Movement>().enabled = false;
+        player.GetComponent<Rigidbody2D>().isKinematic = true;
 
         collectedWord = GameObject.FindGameObjectsWithTag("LockedLetter");
 

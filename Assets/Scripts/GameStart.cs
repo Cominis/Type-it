@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Video;
@@ -11,15 +10,17 @@ public class GameStart : MonoBehaviour
     public GameObject letter;
     private GameObject _player;
 
-    private bool _isPlayable = true;
+    private bool _isPlayable = false;
     private bool _isUpperCase;
     private VideoPlayer _intro;
+    private GameEnd _gameEnd;
     void Start()
     {
         _player = GameObject.FindGameObjectWithTag(Constants.PLAYER);
         _intro = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<VideoPlayer>();
-        //_intro.Play();
+        _intro.Play();
         _intro.loopPointReached += EndReached;
+        _gameEnd = GetComponent<GameEnd>();
     }
 
     void EndReached(VideoPlayer vp)
@@ -34,12 +35,12 @@ public class GameStart : MonoBehaviour
         if (_isPlayable)
         {
 
-        
+
             _isUpperCase = Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift);
 
-        KeyCode thisKeyCode = (KeyCode)System.Enum.Parse(typeof(KeyCode), "A");
+            KeyCode thisKeyCode = (KeyCode)System.Enum.Parse(typeof(KeyCode), "A");
 
-        
+
             foreach (KeyCode vKey in Constants.AcceptableKeys)
             {
                 if (Input.GetKeyDown(vKey))
@@ -55,7 +56,7 @@ public class GameStart : MonoBehaviour
                     //time2setup = true;
                     StartCoroutine(CalculateBound(typedLetter));
 
-                   
+
                     if (_isUpperCase)
                     {
                         typedLetter.GetComponent<TextMeshPro>().text = vKey.ToString();
@@ -74,20 +75,22 @@ public class GameStart : MonoBehaviour
 
                 GameObject timer = Instantiate(timerGameObject, transform, false);
                 timer.GetComponent<Timer>().StartClock();
-                //for (int i = transform.childCount - 1; i > 0; i--)
-                //{
-                //    Transform fkey = transform.GetChild(i);
-                //    word = fkey.GetComponent<TextMeshPro>().text + word;
-                //    fkey.SetParent(null);
-                //    var trigger = fkey.GetComponent<TriggerO>();
 
-                //    trigger.IstoMove = true;
-                //    trigger.ToPosition = new Vector3(Random.Range(-18, 18), Random.Range(-9, 9), 0);
-                //    trigger.IsToChangePosition = true;
-                //}
+                string targetWord = "";
+                _player.transform.GetChild(0).GetChild(0).gameObject.SetActive(true);   // zone --> active
+                var children = _player.transform.childCount - 1;
+                while (children-- > 0)
+                {
+                    Transform fkey = _player.transform.GetChild(1);
+                    fkey.SetParent(null);
+                    fkey.gameObject.AddComponent<Rigidbody2D>().gravityScale = 0;
+                    targetWord = String.Concat(targetWord, fkey.GetComponent<TextMeshPro>().text);
+                }
 
+                _gameEnd.word = targetWord;
 
-
+                _player.GetComponent<Movement>().enabled = true;
+                _player.GetComponent<LetterPositioning>().ResetCursor();
                 //StartCoroutine(StartGame());
                 //CreateLetters();
             }

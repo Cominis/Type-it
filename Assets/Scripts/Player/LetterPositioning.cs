@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class LetterPositioning : MonoBehaviour
@@ -36,6 +35,16 @@ public class LetterPositioning : MonoBehaviour
         }
     }
 
+    public void ResetCursor()
+    {
+        CurrentXPosition = Letters[0].GetComponent<Letter>().LetterLength / 2;
+        CurrentLetterIndex = 1;
+        var letter0 = Letters[0];
+        Letters.Clear();
+        Letters.Add(letter0);
+        ChangeCursorPosition();
+    }
+
     public void AddLetter(char letter, Transform letterTransform)
     {
         letterTransform.tag = Constants.LOCKED_LETTER;
@@ -49,7 +58,8 @@ public class LetterPositioning : MonoBehaviour
         {
             InvokeLetterPositioning(letterTransform, 0);
             newLetterLength /= 2;
-        } else
+        }
+        else
             InvokeLetterPositioning(letterTransform, newLetterLength);
 
         CurrentXPosition += newLetterLength;
@@ -63,14 +73,12 @@ public class LetterPositioning : MonoBehaviour
 
     public void AddLetterInstantly(Transform letterTransform)
     {
-        letterTransform.tag = Constants.LOCKED_LETTER;
         letterTransform.SetParent(transform);
         Destroy(letterTransform.GetComponent<Rigidbody2D>());
         Letters.Insert(CurrentLetterIndex++, letterTransform);
-        
+
         var newLetterLength = letterTransform.GetComponent<Letter>().LetterLength + DistanceBetweenLetters;
-        //var newLetterLength = letterTransform.GetComponent<BoxCollider2D>().size.x + DistanceBetweenLetters;
-        Debug.Log("Letter length: " + newLetterLength);
+
         if (CurrentLetterIndex == 0)    // for first letter only
         {
             letterTransform.localPosition = new Vector2(CurrentXPosition, 0);
@@ -90,7 +98,7 @@ public class LetterPositioning : MonoBehaviour
 
     public void RemoveLetter()
     {
-        if(CurrentLetterIndex > 0)
+        if (CurrentLetterIndex > 0)
         {
             var letterWidth = Letters[--CurrentLetterIndex].GetComponent<Letter>().LetterLength + DistanceBetweenLetters;
             CurrentXPosition -= letterWidth;
