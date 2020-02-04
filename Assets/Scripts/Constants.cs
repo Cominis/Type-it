@@ -40,21 +40,9 @@ public static class Constants
         KeyCode.Z,
     };
 
-    public static List<Theme> Themes { get; set; } = new List<Theme>()
+    public static List<ThemeEventArgs> Themes { get; set; } = new List<ThemeEventArgs>()
     {
-        new Theme(0x660099, 0xffffff),
-        new Theme(0x44ffee, 0x22aa33),
+        new ThemeEventArgs(new Color(0x66, 0x00, 0x99), new Color(0x44, 0xff, 0xee)),
+        new ThemeEventArgs(new Color(0x44, 0xff, 0xee), new Color(0x22, 0xaa, 0x33)),
     };
-}
-
-public class Theme
-{
-    public int BackgroundColor { get; set; }
-    public int TextColor { get; set; }
-
-    public Theme(int backgroundColor, int textColor)
-    {
-        BackgroundColor = backgroundColor;
-        TextColor = textColor;
-    }
 }

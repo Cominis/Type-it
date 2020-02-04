@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 5157849803798749710}
   - component: {fileID: -5854363508898964445}
   - component: {fileID: -623637631441524649}
+  - component: {fileID: 3370432307106489323}
   m_Layer: 0
   m_Name: Letter
   m_TagString: FreeLetter
@@ -252,5 +253,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c9bcc46c71b14db4aa7984125d8599ce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &3370432307106489323
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5157849803798749750}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88b47cea18916974d8b53c667ae3eedb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

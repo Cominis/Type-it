@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3862325083269085464}
   - component: {fileID: 3862325083269085465}
   - component: {fileID: 2929347481880315920}
+  - component: {fileID: 7690368459687473691}
   m_Layer: 0
   m_Name: Zone
   m_TagString: Zone
@@ -112,6 +113,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _speed: 4
+--- !u!114 &7690368459687473691
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3862325083269085467}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf40708db2ce3f947a027bb739721ac2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3862325084457709403
 GameObject:
   m_ObjectHideFlags: 0
@@ -124,6 +137,7 @@ GameObject:
   - component: {fileID: 3862325084457709401}
   - component: {fileID: 133187303380211317}
   - component: {fileID: 4028264434562677048}
+  - component: {fileID: 2094135456819476868}
   m_Layer: 0
   m_Name: Cursor
   m_TagString: Cursor
@@ -218,5 +232,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1bc8de2211307584db60abea394f0246, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2094135456819476868
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3862325084457709403}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf40708db2ce3f947a027bb739721ac2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

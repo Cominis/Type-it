@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 540333841424797021}
   - component: {fileID: 540333841424797022}
   - component: {fileID: 8111444594444058355}
+  - component: {fileID: -1816108572299125740}
   m_Layer: 0
   m_Name: Timer
   m_TagString: Timer
@@ -218,4 +219,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f56a2ac0bb265cd449922631ae1e501f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startingTime: 15
+  startingTime: 5
+--- !u!114 &-1816108572299125740
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 540333841424797016}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88b47cea18916974d8b53c667ae3eedb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

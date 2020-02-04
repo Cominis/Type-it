@@ -10,7 +10,7 @@ public class GameStart : MonoBehaviour
     public GameObject letter;
     private GameObject _player;
 
-    private bool _isPlayable = false;
+    private bool _isPlayable = true;
     private bool _isUpperCase;
     private VideoPlayer _intro;
     private GameEnd _gameEnd;
@@ -18,7 +18,7 @@ public class GameStart : MonoBehaviour
     {
         _player = GameObject.FindGameObjectWithTag(Constants.PLAYER);
         _intro = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<VideoPlayer>();
-        _intro.Play();
+        //_intro.Play();
         _intro.loopPointReached += EndReached;
         _gameEnd = GetComponent<GameEnd>();
     }

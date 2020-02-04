@@ -31,8 +31,8 @@ public class GameEnd : MonoBehaviour
         GameObject.FindGameObjectWithTag("Cursor").SetActive(false);
         var player = GameObject.FindGameObjectWithTag("Player");
 
-        player.GetComponent<Movement>().enabled = false;
-        player.GetComponent<Rigidbody2D>().isKinematic = true;
+        //player.GetComponent<Movement>().enabled = false;
+        player.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
 
         collectedWord = GameObject.FindGameObjectsWithTag("LockedLetter");
 
@@ -50,7 +50,9 @@ public class GameEnd : MonoBehaviour
             yield return new WaitForSeconds(0.5f);
         }
 
-        _restart = true;
+        //_restart = true;
+        GetComponent<GameTheme>().SetCurrentTheme(1);
+
         /*GameObject let = Instantiate(letter);
         let.transform.SetParent(GameObject.FindGameObjectWithTag("Player").transform);
         let.transform.localPosition = new Vector3(0, -10, 0);
