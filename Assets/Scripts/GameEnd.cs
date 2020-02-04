@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameEnd : MonoBehaviour
 {
@@ -9,9 +10,14 @@ public class GameEnd : MonoBehaviour
     public string word;
     private GameObject[] collectedWord;
 
+    private bool _restart = false;
+
     private void Update()
     {
-
+        if (_restart)
+        {
+            SceneManager.LoadScene("Game");
+        }
     }
     public void EndGame()
     {
@@ -44,6 +50,7 @@ public class GameEnd : MonoBehaviour
             yield return new WaitForSeconds(0.5f);
         }
 
+        _restart = true;
         /*GameObject let = Instantiate(letter);
         let.transform.SetParent(GameObject.FindGameObjectWithTag("Player").transform);
         let.transform.localPosition = new Vector3(0, -10, 0);
