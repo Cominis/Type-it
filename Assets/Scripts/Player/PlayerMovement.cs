@@ -1,35 +1,36 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-public class Movement : MonoBehaviour
+public class PlayerMovement : MonoBehaviour
 {
+    //todo: fix movement when tab is pressed
+    //todo: fix movement disable
     [SerializeField]
     private float _speed = 4;
-    public float Speed { get => _speed; set => _speed = value; }
-    private Rigidbody2D Rigidbody2D { get; set; }
-    private bool IsMovingAllowed { get; set; } = true;
-    void Start()
+    private Rigidbody2D _rigidbody2D;
+    private bool _isMovingAllowed = true;
+    void Awake()
     {
-        Rigidbody2D = GetComponent<Rigidbody2D>();
+        _rigidbody2D = GetComponent<Rigidbody2D>();
     }
 
     void Update()
     {
-        if (IsMovingAllowed && !Input.GetKey(KeyCode.Tab))
+        if (_isMovingAllowed && !Input.GetKey(KeyCode.Tab))
         {
             float horizontalInput = Input.GetAxis("Horizontal");
             float verticalInput = Input.GetAxis("Vertical");
 
             Vector2 movement = new Vector2(horizontalInput, verticalInput);
 
-            Rigidbody2D.velocity = movement * Speed;
+            _rigidbody2D.velocity = movement * _speed;
         }
         
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.gameObject.tag == Constants.WALL)
+        if(collision.gameObject.tag == Tags.WALL)
         {
             StartCoroutine(DisableMovementBy(0.1f));
         }
@@ -37,8 +38,8 @@ public class Movement : MonoBehaviour
 
     IEnumerator DisableMovementBy(float time)
     {
-        IsMovingAllowed = false;
+        _isMovingAllowed = false;
         yield return new WaitForSeconds(time);
-        IsMovingAllowed = true;
+        _isMovingAllowed = true;
     }
 }

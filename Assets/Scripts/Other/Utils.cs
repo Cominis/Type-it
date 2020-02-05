@@ -1,17 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
-public static class Constants
+public static class Utils
 {
-    public const string FREE_LETTER = "FreeLetter";
-    public const string LOCKED_LETTER = "LockedLetter";
-    public const string PLAYER = "Player";
-    public const string WALL = "Wall";
-
-    public static string ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-
     public static KeyCode[] AcceptableKeys { get; } = new KeyCode[]
-    {
+   {
         KeyCode.A,
         KeyCode.B,
         KeyCode.C,
@@ -38,11 +32,11 @@ public static class Constants
         KeyCode.X,
         KeyCode.Y,
         KeyCode.Z,
-    };
+   };
 
     public static List<ThemeEventArgs> Themes { get; set; } = new List<ThemeEventArgs>()
     {
-        new ThemeEventArgs(new Color(0x66, 0x00, 0x99), new Color(0x44, 0xff, 0xee)),
-        new ThemeEventArgs(new Color(0x44, 0xff, 0xee), new Color(0x22, 0xaa, 0x33)),
+        new ThemeEventArgs(new Color32(40, 74, 99, 255), new Color32(79, 209, 185, 255)),
+        new ThemeEventArgs(new Color32(77, 24, 110, 255), new Color32(235, 23, 206, 255)),
     };
 }

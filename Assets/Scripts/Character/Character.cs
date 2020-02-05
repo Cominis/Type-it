@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 
-public class Letter : MonoBehaviour
+public class Character : MonoBehaviour
 {
-    public float LetterLength { get; set; }
+    public float CharacterLength { get; set; }
 
     [SerializeField]
     private PhysicsMaterial2D _material;

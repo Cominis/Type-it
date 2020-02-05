@@ -5,7 +5,7 @@ public class GameInput : MonoBehaviour
 {
     private static Dictionary<char, List<GameObject>> items;
     private bool isUpperCase;
-    public KeyCode[] ascceptableLetters;
+    public KeyCode[] ascceptable_characters;
     private pos LetterPositioning { get; set; }
     private void Start()
     {
@@ -51,7 +51,7 @@ public class GameInput : MonoBehaviour
     {
         isUpperCase = Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift);
 
-        foreach (KeyCode vKey in ascceptableLetters)
+        foreach (KeyCode vKey in ascceptable_characters)
         {
             if (Input.GetKeyDown(vKey))
             {

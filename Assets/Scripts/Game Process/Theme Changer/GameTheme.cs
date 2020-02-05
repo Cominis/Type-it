@@ -15,10 +15,10 @@ public class GameTheme : MonoBehaviour
     }
     public void SetCurrentTheme(int value)
     {
-        if (_currentThemeIndex != value && value < Constants.Themes.Count && value >= 0)
+        if (_currentThemeIndex != value && value < Utils.Themes.Count && value >= 0)
         {
             _currentThemeIndex = value;
-            _currentTheme = Constants.Themes[value];
+            _currentTheme = Utils.Themes[value];
             OnColorChanged();
         }
 
@@ -27,9 +27,12 @@ public class GameTheme : MonoBehaviour
     public event EventHandler<ThemeEventArgs> ColorChanged;
     public void OnColorChanged()
     {
+        //Debug.Log("bc color: " + _currentTheme.BackgraoundColor);
+        //Debug.Log("BEFORE camera color: " + _mainCamera.backgroundColor);
         _mainCamera.backgroundColor = _currentTheme.BackgraoundColor;
+        //Debug.Log("AFTER camera color: " + _mainCamera.backgroundColor);
+
         ColorChanged?.Invoke(null, _currentTheme);
     }
 
-    
 }

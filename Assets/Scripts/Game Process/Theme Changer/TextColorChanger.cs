@@ -5,17 +5,22 @@ using UnityEngine;
 public class TextColorChanger : MonoBehaviour
 {
     private TextMeshPro _textMeshPro;
+    private GameTheme _gameTheme;
     void Start()
     {
         _textMeshPro = GetComponent<TextMeshPro>();
-        GameObject.FindGameObjectWithTag("GameController")
-            .GetComponent<GameTheme>().ColorChanged += ChangeTheme;
+        _gameTheme = GameObject.FindGameObjectWithTag("GameController")
+            .GetComponent<GameTheme>();
+        _gameTheme.ColorChanged += ChangeTheme;
     }
 
     private void ChangeTheme(object obj, ThemeEventArgs args)
     {
-
-        Debug.Log("color have been changed! " + gameObject.name);
         _textMeshPro.color = args.TextColor;
+    }
+
+    private void OnDestroy()
+    {
+        _gameTheme.ColorChanged -= ChangeTheme;
     }
 }

@@ -4,29 +4,30 @@ using UnityEngine;
 
 public class CursorMovement : MonoBehaviour
 {
-    LetterPositioning letterPositioning;
-    private void Start()
+    private CursorPositioning _cursorPositioning;
+    private void Awake()
     {
-        letterPositioning = transform.parent.GetComponent<LetterPositioning>();
+        _cursorPositioning = GetComponent<CursorPositioning>();
     }
 
     void Update()
     {
         if (Input.GetKey(KeyCode.Tab))
         {
-            if (Input.GetKeyDown(KeyCode.LeftArrow))
+            if (Input.GetKeyDown(KeyCode.LeftArrow) && _cursorPositioning.MoveBackward())
             {
-                letterPositioning.MoveBackward();
+                //play typed sound
             }
 
-            if (Input.GetKeyDown(KeyCode.RightArrow))
+            if (Input.GetKeyDown(KeyCode.RightArrow) && _cursorPositioning.MoveForward())
             {
-                letterPositioning.MoveForward();
+                //play back sound
             }
         }
         if (Input.GetKeyDown(KeyCode.Backspace))
         {
-            letterPositioning.RemoveLetter();
+            _cursorPositioning.DeleteCharacter();    //todo: cursor sounds
+            //play delete sound
         }
         
     }

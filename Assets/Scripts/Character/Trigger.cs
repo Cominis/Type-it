@@ -5,36 +5,34 @@ using UnityEngine;
 
 public class Trigger : MonoBehaviour
 {
-    public float Speed { get; set; } = 12f;
+    //todo: disabled when tag is changed
+    [SerializeField]
+    private float _speed;
+
+    private char _character;
+
+    public float Speed { get => _speed; set => _speed = value; }
     public Vector3 ToPosition { get; set; }
     public bool IsToChangePosition { get; set; } = false;
 
-    private char _letter;
-    public bool IstoMove { get; set; } = false;
-
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.tag == "Zone" && transform.tag == Constants.FREE_LETTER)
+        if (other.tag == Tags.ACTIVE_ZONE && transform.tag == Tags.LOOSE_LETTER)
         {
-            _letter = transform.GetComponent<TextMeshPro>().text[0];
+            _character = transform.GetComponent<TextMeshPro>().text[0]; //todo: takes only one time
 
-            //for input
-            LetterAttachment.AddItem(_letter, transform);
+            //to activate input
+            PlayerAttachment.ActivateLetter(_character, transform);
         }
     }
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        if (other.tag == "Zone" && transform.tag == Constants.FREE_LETTER)
+        if (other.tag == Tags.ACTIVE_ZONE && transform.tag == Tags.LOOSE_LETTER)
         {
-            //for input
-            LetterAttachment.RemoveItem(_letter, transform);
+            //to deactivate input
+            PlayerAttachment.DeactivateLetter(_character, transform);
         }
-    }
-
-    public void RemoveLetter(char letterKey, GameObject letter)
-    {
-        GameInput.RemoveItem(letterKey, letter);
     }
 
     private void Update()

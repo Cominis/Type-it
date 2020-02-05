@@ -5,13 +5,12 @@ using UnityEngine;
 
 public class ThemeEventArgs : EventArgs
 {
-    public Color BackgraoundColor { get; set; }
-    public Color TextColor { get; set; }
+    public Color32 BackgraoundColor { get; set; }
+    public Color32 TextColor { get; set; }
 
-    public ThemeEventArgs(Color backgraoundColor, Color textColor)
+    public ThemeEventArgs(Color32 backgraoundColor, Color32 textColor)
     {
         BackgraoundColor = backgraoundColor;
         TextColor = textColor;
     }
-
 }

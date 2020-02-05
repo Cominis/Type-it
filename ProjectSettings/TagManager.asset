@@ -5,11 +5,11 @@ TagManager:
   serializedVersion: 2
   tags:
   - Wall
-  - FreeLetter
-  - LockedLetter
-  - Zone
   - Cursor
   - Timer
+  - LooseLetter
+  - StrainedLetter
+  - ActiveZone
   layers:
   - Default
   - TransparentFX

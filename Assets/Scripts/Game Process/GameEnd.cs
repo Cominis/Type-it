@@ -8,7 +8,7 @@ public class GameEnd : MonoBehaviour
     public GameObject right;
     public GameObject wrong;
     public string word;
-    private GameObject[] collectedWord;
+    
 
     private bool _restart = false;
 
@@ -16,7 +16,13 @@ public class GameEnd : MonoBehaviour
     {
         if (_restart)
         {
-            SceneManager.LoadScene("Game");
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                _restart = false;
+                SceneManager.LoadScene("Game");
+            }
+            //todo: make new levels and restart normal
+            
         }
     }
     public void EndGame()
@@ -25,16 +31,14 @@ public class GameEnd : MonoBehaviour
     }
     IEnumerator Ending()
     {
-        foreach (GameObject looseLetter in GameObject.FindGameObjectsWithTag("FreeLetter"))
+        foreach (GameObject looseLetter in GameObject.FindGameObjectsWithTag(Tags.LOOSE_LETTER))
             Destroy(looseLetter);
 
-        GameObject.FindGameObjectWithTag("Cursor").SetActive(false);
-        var player = GameObject.FindGameObjectWithTag("Player");
-
-        //player.GetComponent<Movement>().enabled = false;
+        GameObject.FindGameObjectWithTag(Tags.CURSOR).SetActive(false);
+        var player = GameObject.FindGameObjectWithTag(Tags.PLAYER);
         player.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
 
-        collectedWord = GameObject.FindGameObjectsWithTag("LockedLetter");
+        GameObject[] collectedWord = GameObject.FindGameObjectsWithTag(Tags.STRAINED_LETTER);
 
         for (int i = 0; i < collectedWord.Length; i++)
         {
@@ -50,13 +54,14 @@ public class GameEnd : MonoBehaviour
             yield return new WaitForSeconds(0.5f);
         }
 
-        //_restart = true;
+        _restart = true;
         GetComponent<GameTheme>().SetCurrentTheme(1);
+        //todo: fix color changer
 
         /*GameObject let = Instantiate(letter);
         let.transform.SetParent(GameObject.FindGameObjectWithTag("Player").transform);
         let.transform.localPosition = new Vector3(0, -10, 0);
-        let.GetComponent<TextMeshPro>().text = "Missing letters: " + Mathf.Clamp(word.Length - collectedWord.Length, 0, 100);
+        let.GetComponent<TextMeshPro>().text = "Missing _characters: " + Mathf.Clamp(word.Length - collectedWord.Length, 0, 100);
         Destroy(Instantiate(right));*/
     }
 }

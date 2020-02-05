@@ -11,7 +11,7 @@ public class TriggerO : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Zone" && transform.tag == Constants.FREE_LETTER)
+        if (other.tag == Tags.ACTIVE_ZONE && transform.tag == Tags.LOOSE_LETTER)
         {
             ThisLetterKey = transform.GetComponent<TextMeshPro>().text[0];
             GameInput.AddItem(ThisLetterKey, gameObject);
@@ -21,7 +21,7 @@ public class TriggerO : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.tag == "Zone" && transform.tag == Constants.FREE_LETTER)
+        if (other.tag == Tags.ACTIVE_ZONE && transform.tag == Tags.LOOSE_LETTER)
         {
             GameInput.RemoveItem(ThisLetterKey, gameObject);
         }

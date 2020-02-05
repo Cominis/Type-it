@@ -93,7 +93,7 @@ public class Timero : MonoBehaviour
         /*GameObject let = Instantiate(letter);
         let.transform.SetParent(GameObject.FindGameObjectWithTag("Player").transform);
         let.transform.localPosition = new Vector3(0, -10, 0);
-        let.GetComponent<TextMeshPro>().text = "Missing letters: " + Mathf.Clamp(word.Length - collectedWord.Length, 0, 100);
+        let.GetComponent<TextMeshPro>().text = "Missing _characters: " + Mathf.Clamp(word.Length - collectedWord.Length, 0, 100);
         Destroy(Instantiate(right));*/
     }
 }
