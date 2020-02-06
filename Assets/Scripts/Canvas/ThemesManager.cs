@@ -1,4 +1,5 @@
 ﻿using System;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -14,7 +15,7 @@ public class ThemesManager : MonoBehaviour
         for (int i = 0; i < Utils.Themes.Count; i++)
         {
             var button = Instantiate(theme, layout, false);
-            button.GetComponent<Theme>().ThemeIndex = i;
+            button.GetComponent<ThemeChangeTrigger>().ThemeIndex = i;
             button.transform.GetChild(0).GetComponent<Image>().color = Utils.Themes[i].BackgraoundColor;
             button.transform.GetChild(1).GetComponent<Image>().color = Utils.Themes[i].TextColor;
         }

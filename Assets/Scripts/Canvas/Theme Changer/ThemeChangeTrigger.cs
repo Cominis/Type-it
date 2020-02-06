@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class Theme : MonoBehaviour
+public class ThemeChangeTrigger : MonoBehaviour
 {
     public int ThemeIndex { get; set; }
 

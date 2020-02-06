@@ -1,39 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 
-public class Trigger : MonoBehaviour
+public class MovementTransition : MonoBehaviour
 {
     //todo: disabled when tag is changed
     [SerializeField]
     private float _speed;
-
-    private char _character;
-
     public float Speed { get => _speed; set => _speed = value; }
     public Vector3 ToPosition { get; set; }
     public bool IsToChangePosition { get; set; } = false;
-
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.tag == Tags.ACTIVE_ZONE && transform.tag == Tags.LOOSE_LETTER)
-        {
-            _character = transform.GetComponent<TextMeshPro>().text[0]; //todo: takes only one time
-
-            //to activate input
-            CharacterAttachment.ActivateLetter(_character, transform);
-        }
-    }
-
-    private void OnTriggerExit2D(Collider2D other)
-    {
-        if (other.tag == Tags.ACTIVE_ZONE && transform.tag == Tags.LOOSE_LETTER)
-        {
-            //to deactivate input
-            CharacterAttachment.DeactivateLetter(_character, transform);
-        }
-    }
 
     private void Update()
     {

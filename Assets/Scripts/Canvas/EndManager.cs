@@ -20,6 +20,7 @@ public class EndManager : MonoBehaviour
 
         GameObject.FindGameObjectWithTag(Tags.CURSOR).SetActive(false);
         var player = GameObject.FindGameObjectWithTag(Tags.PLAYER);
+        player.transform.position = Vector3.zero;
         player.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
 
         var collectedWord = CursorPositioning.Characters;

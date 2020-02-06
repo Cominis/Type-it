@@ -19,7 +19,7 @@ public class StartManager : MonoBehaviour
     void Awake()
     {
         _player = GameObject.FindGameObjectWithTag(Tags.PLAYER);
-        _cursorPositioning = _player.transform.GetChild(0).GetComponent<CursorPositioning>();
+        _cursorPositioning = _player.transform.GetChild(0).GetChild(0).GetComponent<CursorPositioning>();
         _gameEnd = GetComponent<EndManager>();
 
         _intro = GameObject.FindGameObjectWithTag(Tags.MAIN_CAMERA).GetComponent<VideoPlayer>();
@@ -53,7 +53,7 @@ public class StartManager : MonoBehaviour
             {
                 if (Input.GetKeyDown(vKey))
                 {
-                    GameObject typedCharacter = Instantiate(character, _player.transform);
+                    GameObject typedCharacter = Instantiate(character, _player.transform.GetChild(0));  // parent --> characters holder
                     typedCharacter.GetComponent<TextMeshPro>().text =
                         _isUpperCase ? vKey.ToString() : vKey.ToString().ToLower();
 
@@ -67,29 +67,23 @@ public class StartManager : MonoBehaviour
 
                 InstantiateTimer();
                 _gameEnd.word = _cursorPositioning.LooseCharacters();
-                _player.transform.GetChild(0).GetChild(0).gameObject.SetActive(true);   // zone --> active
+                _player.transform.GetChild(0).GetChild(0).GetChild(0).gameObject.SetActive(true);   // zone --> active
                 _player.GetComponent<PlayerMovement>().enabled = true;
 
 
                 StartCoroutine(GenerateRandomCharacters());
             }
         }
-
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            //pause a game 
-            // turn on canvas
-        }
     }
 
     //todo: optimize
     IEnumerator GenerateRandomCharacters()
     {
-        var wallCollider = GameObject.FindGameObjectWithTag(Tags.WALL).GetComponent<PolygonCollider2D>();
-        var minX = wallCollider.bounds.min.x + 1;
-        var maxX = wallCollider.bounds.max.x - 1;
-        var minY = wallCollider.bounds.min.y + 1;
-        var maxY = wallCollider.bounds.max.y - 1;
+        var minX = WallProps.MinX + 1;
+        var maxX = WallProps.MaxX - 1;
+        var minY = WallProps.MinY + 1;
+        var maxY = WallProps.MaxY - 1;
+
         for (int i = 0; i < 20; i++)
         {
 
@@ -102,7 +96,7 @@ public class StartManager : MonoBehaviour
             var letterClass = typedCharacter.GetComponent<Character>();
             letterClass.CharacterLength = boxCollider.bounds.size.x;
             boxCollider.sharedMaterial = letterClass.Material;  //todo: material is added only in this class
-                                                                //typedLetter.GetComponent<TextMeshPro>().color = new Color(let.GetComponent<TextMeshPro>().color.r, let.GetComponent<TextMeshPro>().color.g, let.GetComponent<TextMeshPro>().color.b, 0);
+          //typedLetter.GetComponent<TextMeshPro>().color = new Color(let.GetComponent<TextMeshPro>().color.r, let.GetComponent<TextMeshPro>().color.g, let.GetComponent<TextMeshPro>().color.b, 0);
 
             typedCharacter.GetComponent<RandomMovement>().Move();
         }

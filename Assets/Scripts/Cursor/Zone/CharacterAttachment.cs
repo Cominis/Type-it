@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerAttachment : MonoBehaviour
+public class CharacterAttachment : MonoBehaviour
 {
+    //todo: make this script on zone
     private static Dictionary<char, List<Transform>> __charactersInZone;
     private bool _isUpperCase = false;
     private CursorPositioning _cursorPositioning;
@@ -35,7 +36,7 @@ public class PlayerAttachment : MonoBehaviour
             __charactersInZone.Add(keyCode.ToString()[0], new List<Transform>());
             __charactersInZone.Add(keyCode.ToString().ToLower()[0], new List<Transform>());
         }
-        _cursorPositioning = transform.GetChild(0).GetComponent<CursorPositioning>();
+        _cursorPositioning = transform.parent.GetComponent<CursorPositioning>();
     }
 
     void Update()

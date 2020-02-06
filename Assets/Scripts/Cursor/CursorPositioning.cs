@@ -10,7 +10,7 @@ public class CursorPositioning : MonoBehaviour
     private int _currentCharacterIndex = 0;
     public static List<Transform> Characters = new List<Transform>();
     private AudioSource audioSource;
-
+    private float _wordLength = 0;
     private void Awake()
     {
         audioSource = GetComponent<AudioSource>();
@@ -43,8 +43,11 @@ public class CursorPositioning : MonoBehaviour
         firstCharacter.tag = Tags.STRAINED_LETTER;
         InvokeCharacterPositioning(firstCharacter, 0);
 
-        _currentXPosition = firstCharacter.GetComponent<Character>().CharacterLength / 2;
+        _currentXPosition = firstCharacter.GetComponent<Character>().CharacterLength;
+        _wordLength = _currentXPosition;
+        _currentXPosition /= 2;
         ChangeCursorXPosition();
+        InvokeCharactersHolderPositioning();
 
         _currentCharacterIndex = 1;
         Characters.Clear();
@@ -53,7 +56,7 @@ public class CursorPositioning : MonoBehaviour
 
     public string LooseCharacters()
     {
-        string targetWord = Characters[0].GetComponent<TextMeshPro>().text;  // zone --> active
+        string targetWord = Characters[0].GetComponent<TextMeshPro>().text;
         for (int i = 1; i < Characters.Count; i++)
         {
             var character = Characters[i];
@@ -77,12 +80,12 @@ public class CursorPositioning : MonoBehaviour
     public void AddCharacter(char letter, Transform character)
     {
         character.tag = Tags.STRAINED_LETTER;
-        character.SetParent(transform.parent);    //parent will be player
+        character.SetParent(transform.parent);    //parent will be characters holder
         Destroy(character.GetComponent<Rigidbody2D>());
         Characters.Insert(_currentCharacterIndex, character);
 
         var newCharacterLength = character.GetComponent<Character>().CharacterLength + distanceBetweenCharacters;
-
+        _wordLength += newCharacterLength;
         //animate new character movement to desired location
         if (_currentCharacterIndex == 0)    // for first letter only
         {
@@ -96,7 +99,7 @@ public class CursorPositioning : MonoBehaviour
         _currentCharacterIndex++;
         _currentXPosition += newCharacterLength;
         ChangeCursorXPosition();
-
+        InvokeCharactersHolderPositioning();
         //update all subsequent characters
         for (int i = _currentCharacterIndex; i < Characters.Count; i++)
         {
@@ -106,27 +109,27 @@ public class CursorPositioning : MonoBehaviour
 
     public void AddCharacterInstantly(Transform letterTransform)
     {
-        letterTransform.SetParent(transform.parent);    //parent will be player
+        letterTransform.SetParent(transform.parent);    //parent will be character holder
         Destroy(letterTransform.GetComponent<Rigidbody2D>());
         Characters.Insert(_currentCharacterIndex, letterTransform);
 
-        var newLetterLength = letterTransform.GetComponent<Character>().CharacterLength + distanceBetweenCharacters;
-
+        var newCharacterLength = letterTransform.GetComponent<Character>().CharacterLength + distanceBetweenCharacters;
+        _wordLength += newCharacterLength;
         if (_currentCharacterIndex == 0)    // for first letter only
         {
             letterTransform.localPosition = new Vector2(_currentXPosition, 0);
-            newLetterLength /= 2;
+            newCharacterLength /= 2;
         }
         else
-            letterTransform.localPosition = new Vector2(_currentXPosition + newLetterLength / 2, 0);
+            letterTransform.localPosition = new Vector2(_currentXPosition + newCharacterLength / 2, 0);
 
         _currentCharacterIndex++;
-        _currentXPosition += newLetterLength;
+        _currentXPosition += newCharacterLength;
         ChangeCursorXPosition();
-
+        InvokeCharactersHolderPositioning();
         for (int i = _currentCharacterIndex; i < Characters.Count; i++)
         {
-            Characters[i].localPosition = new Vector2(Characters[i].localPosition.x + newLetterLength, Characters[i].localPosition.y);
+            Characters[i].localPosition = new Vector2(Characters[i].localPosition.x + newCharacterLength, Characters[i].localPosition.y);
         }
     }
 
@@ -136,7 +139,7 @@ public class CursorPositioning : MonoBehaviour
         {
             var letterWidth = Characters[--_currentCharacterIndex].GetComponent<Character>().CharacterLength + distanceBetweenCharacters;
             _currentXPosition -= letterWidth;
-
+            _wordLength -= letterWidth;
             for (int i = _currentCharacterIndex; i < Characters.Count; i++)
             {
                 Characters[i].localPosition = new Vector2(Characters[i].localPosition.x - letterWidth, Characters[i].localPosition.y);
@@ -144,6 +147,7 @@ public class CursorPositioning : MonoBehaviour
 
             DestroyCharacter();
             ChangeCursorXPosition();
+            InvokeCharactersHolderPositioning();
         }
     }
 
@@ -159,6 +163,13 @@ public class CursorPositioning : MonoBehaviour
         var trigger = character.GetComponent<Trigger>();
         trigger.ToPosition = new Vector2(xAxisPosition, 0);
         trigger.IsToChangePosition = true;
+    }
+
+    private void InvokeCharactersHolderPositioning()
+    {
+        var script = transform.parent.GetComponent<MovementTransition>();
+        script.ToPosition = new Vector2(-_wordLength / 2, 0);
+        script.IsToChangePosition = true;
     }
 
     private void ChangeCursorXPosition()

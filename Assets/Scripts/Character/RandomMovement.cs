@@ -27,7 +27,7 @@ public class RandomMovement : MonoBehaviour
         _rigidBody2D = GetComponent<Rigidbody2D>();
         _speedX = UnityEngine.Random.Range(MIN_SPEED, MAX_SPEED) * (UnityEngine.Random.Range(0, 2) * 2 - 1);
         _speedY = UnityEngine.Random.Range(MIN_SPEED, MAX_SPEED) * (UnityEngine.Random.Range(0, 2) * 2 - 1);
-        Debug.Log(_speedX + " : " + _speedY);
+        //Debug.Log(_speedX + " : " + _speedY);
         _rigidBody2D = GetComponent<Rigidbody2D>();
         StartCoroutine(StopMoving());
         _isMoving = true;

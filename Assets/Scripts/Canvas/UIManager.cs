@@ -3,7 +3,6 @@
 public class UIManager : MonoBehaviour
 {
     private bool _isCanvasOn = false;
-
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
