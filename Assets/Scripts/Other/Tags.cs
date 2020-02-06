@@ -1,8 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public static class Tags
+﻿public static class Tags
 {
     public const string LOOSE_LETTER = "LooseLetter";
     public const string STRAINED_LETTER = "StrainedLetter";
@@ -12,4 +8,6 @@ public static class Tags
     public const string MAIN_CAMERA = "MainCamera";
     public const string TIMER = "Timer";
     public const string CURSOR = "Cursor";
+    public const string THEME_MANAGER = "ThemeManager";
+    public const string GAME_CONTROLLER = "GameController";
 }

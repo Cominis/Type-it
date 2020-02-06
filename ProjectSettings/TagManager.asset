@@ -10,6 +10,7 @@ TagManager:
   - LooseLetter
   - StrainedLetter
   - ActiveZone
+  - ThemeManager
   layers:
   - Default
   - TransparentFX

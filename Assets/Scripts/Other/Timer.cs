@@ -1,8 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using TMPro;
 using UnityEngine;
-using TMPro;
-using System;
 
 public class Timer : MonoBehaviour
 {
@@ -12,32 +9,52 @@ public class Timer : MonoBehaviour
 
     private bool _isCountingDown = false;
 
-    private TextMeshPro _textMeshPro;
+    private TextMeshProUGUI _textMeshProUGUI;
+    private EndManager _gameEnd;
+    private ThemesManager _themeManager;
 
     private void Awake()
     {
-        _textMeshPro = GetComponent<TextMeshPro>();
+        _textMeshProUGUI = GetComponent<TextMeshProUGUI>();
+        _gameEnd = transform.parent.GetComponent<EndManager>();
+        _themeManager = transform.parent.GetComponent<ThemesManager>();
+        _themeManager.ThemeChanged += ChangeTheme;
+
+    }
+
+    private void ChangeTheme(object obj, int themeIndex)
+    {
+        _textMeshProUGUI.color = Utils.Themes[themeIndex].TextColor;
+    }
+
+    private void OnDestroy()
+    {
+        _themeManager.ThemeChanged -= ChangeTheme;
     }
 
     void Update()
     {
         if (_isCountingDown)
         {
-            _currentTime -= Time.deltaTime;
-
-            if (_currentTime <= 0f)
-            {
-                _textMeshPro.text = "Time is up!";
-                ResetClock();
-                transform.parent.GetComponent<GameEnd>().EndGame();
-                return;
-            }
-
-            int time = (int)_currentTime;
-            _textMeshPro.text = $"{ time / 60:00}:{ time % 60:00}";
+            UpdateTimer();
         }
     }
 
+    private void UpdateTimer()
+    {
+        _currentTime -= Time.deltaTime;
+
+        if (_currentTime <= 0f)
+        {
+            _textMeshProUGUI.text = "Time is up!";
+            ResetClock();
+            _gameEnd.EndGame();
+            return;
+        }
+
+        int time = (int)_currentTime;
+        _textMeshProUGUI.text = $"{ time / 60:00}:{ time % 60:00}";
+    }
     public void Stop() => _isCountingDown = false;
     public void Resume() => _isCountingDown = true;
     public void ResetClock()
@@ -54,7 +71,7 @@ public class Timer : MonoBehaviour
         _isCountingDown = true;
     }
 
-    
+
     public void SetClockAndStart(float seconds)
     {
         SetClock(seconds);

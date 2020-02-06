@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
@@ -9,7 +8,7 @@ public class CursorPositioning : MonoBehaviour
     public AudioClip[] cursorSounds;
     private float _currentXPosition = 0f;
     private int _currentCharacterIndex = 0;
-    private List<Transform> _characters = new List<Transform>();
+    public static List<Transform> Characters = new List<Transform>();
     private AudioSource audioSource;
 
     private void Awake()
@@ -18,9 +17,9 @@ public class CursorPositioning : MonoBehaviour
     }
     public bool MoveForward()
     {
-        if (_currentCharacterIndex < _characters.Count)
+        if (_currentCharacterIndex < Characters.Count)
         {
-            _currentXPosition += (_characters[_currentCharacterIndex++].GetComponent<Character>().CharacterLength + distanceBetweenCharacters);
+            _currentXPosition += (Characters[_currentCharacterIndex++].GetComponent<Character>().CharacterLength + distanceBetweenCharacters);
             ChangeCursorXPosition();
             return true;
         }
@@ -31,7 +30,7 @@ public class CursorPositioning : MonoBehaviour
     {
         if (_currentCharacterIndex > 0)
         {
-            _currentXPosition -= (_characters[--_currentCharacterIndex].GetComponent<Character>().CharacterLength + distanceBetweenCharacters);
+            _currentXPosition -= (Characters[--_currentCharacterIndex].GetComponent<Character>().CharacterLength + distanceBetweenCharacters);
             ChangeCursorXPosition();
             return true;
         }
@@ -40,7 +39,7 @@ public class CursorPositioning : MonoBehaviour
 
     private void ResetCursor()
     {
-        var firstCharacter = _characters[0];
+        var firstCharacter = Characters[0];
         firstCharacter.tag = Tags.STRAINED_LETTER;
         InvokeCharacterPositioning(firstCharacter, 0);
 
@@ -48,16 +47,16 @@ public class CursorPositioning : MonoBehaviour
         ChangeCursorXPosition();
 
         _currentCharacterIndex = 1;
-        _characters.Clear();
-        _characters.Add(firstCharacter);
+        Characters.Clear();
+        Characters.Add(firstCharacter);
     }
 
     public string LooseCharacters()
     {
-        string targetWord = _characters[0].GetComponent<TextMeshPro>().text;  // zone --> active
-        for (int i = 1; i < _characters.Count; i++)
+        string targetWord = Characters[0].GetComponent<TextMeshPro>().text;  // zone --> active
+        for (int i = 1; i < Characters.Count; i++)
         {
-            var character = _characters[i];
+            var character = Characters[i];
             character.SetParent(null);
             targetWord = string.Concat(targetWord, character.GetComponent<TextMeshPro>().text);
 
@@ -68,7 +67,7 @@ public class CursorPositioning : MonoBehaviour
             character.GetComponent<RandomMovement>().Move();
         }
 
-        if (_characters.Count > 0)
+        if (Characters.Count > 0)
             ResetCursor();
 
         return targetWord;
@@ -80,7 +79,7 @@ public class CursorPositioning : MonoBehaviour
         character.tag = Tags.STRAINED_LETTER;
         character.SetParent(transform.parent);    //parent will be player
         Destroy(character.GetComponent<Rigidbody2D>());
-        _characters.Insert(_currentCharacterIndex, character);
+        Characters.Insert(_currentCharacterIndex, character);
 
         var newCharacterLength = character.GetComponent<Character>().CharacterLength + distanceBetweenCharacters;
 
@@ -99,9 +98,9 @@ public class CursorPositioning : MonoBehaviour
         ChangeCursorXPosition();
 
         //update all subsequent characters
-        for (int i = _currentCharacterIndex; i < _characters.Count; i++)
+        for (int i = _currentCharacterIndex; i < Characters.Count; i++)
         {
-            _characters[i].localPosition = new Vector2(_characters[i].localPosition.x + newCharacterLength, _characters[i].localPosition.y);
+            Characters[i].localPosition = new Vector2(Characters[i].localPosition.x + newCharacterLength, Characters[i].localPosition.y);
         }
     }
 
@@ -109,7 +108,7 @@ public class CursorPositioning : MonoBehaviour
     {
         letterTransform.SetParent(transform.parent);    //parent will be player
         Destroy(letterTransform.GetComponent<Rigidbody2D>());
-        _characters.Insert(_currentCharacterIndex, letterTransform);
+        Characters.Insert(_currentCharacterIndex, letterTransform);
 
         var newLetterLength = letterTransform.GetComponent<Character>().CharacterLength + distanceBetweenCharacters;
 
@@ -120,14 +119,14 @@ public class CursorPositioning : MonoBehaviour
         }
         else
             letterTransform.localPosition = new Vector2(_currentXPosition + newLetterLength / 2, 0);
-        
+
         _currentCharacterIndex++;
         _currentXPosition += newLetterLength;
         ChangeCursorXPosition();
 
-        for (int i = _currentCharacterIndex; i < _characters.Count; i++)
+        for (int i = _currentCharacterIndex; i < Characters.Count; i++)
         {
-            _characters[i].localPosition = new Vector2(_characters[i].localPosition.x + newLetterLength, _characters[i].localPosition.y);
+            Characters[i].localPosition = new Vector2(Characters[i].localPosition.x + newLetterLength, Characters[i].localPosition.y);
         }
     }
 
@@ -135,12 +134,12 @@ public class CursorPositioning : MonoBehaviour
     {
         if (_currentCharacterIndex > 0)
         {
-            var letterWidth = _characters[--_currentCharacterIndex].GetComponent<Character>().CharacterLength + distanceBetweenCharacters;
+            var letterWidth = Characters[--_currentCharacterIndex].GetComponent<Character>().CharacterLength + distanceBetweenCharacters;
             _currentXPosition -= letterWidth;
 
-            for (int i = _currentCharacterIndex; i < _characters.Count; i++)
+            for (int i = _currentCharacterIndex; i < Characters.Count; i++)
             {
-                _characters[i].localPosition = new Vector2(_characters[i].localPosition.x - letterWidth, _characters[i].localPosition.y);
+                Characters[i].localPosition = new Vector2(Characters[i].localPosition.x - letterWidth, Characters[i].localPosition.y);
             }
 
             DestroyCharacter();
@@ -150,9 +149,9 @@ public class CursorPositioning : MonoBehaviour
 
     private void DestroyCharacter()
     {
-        _characters[_currentCharacterIndex].tag = Tags.LOOSE_LETTER;
-        Destroy(_characters[_currentCharacterIndex].gameObject);
-        _characters.RemoveAt(_currentCharacterIndex);
+        Characters[_currentCharacterIndex].tag = Tags.LOOSE_LETTER;
+        Destroy(Characters[_currentCharacterIndex].gameObject);
+        Characters.RemoveAt(_currentCharacterIndex);
     }
 
     private void InvokeCharacterPositioning(Transform character, float xAxisPosition)

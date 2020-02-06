@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public static class Utils
@@ -36,7 +35,10 @@ public static class Utils
 
     public static List<ThemeEventArgs> Themes { get; set; } = new List<ThemeEventArgs>()
     {
-        new ThemeEventArgs(new Color32(40, 74, 99, 255), new Color32(79, 209, 185, 255)),
-        new ThemeEventArgs(new Color32(77, 24, 110, 255), new Color32(235, 23, 206, 255)),
+        new ThemeEventArgs(new Color32(255, 255, 255, 255), new Color32(0, 0, 0, 255)),
+        new ThemeEventArgs(new Color32(0, 0, 0, 255), new Color32(255, 255, 255, 255)),
+        new ThemeEventArgs(new Color32(255, 236, 0, 255), new Color32(255, 156, 0, 255)),
+        new ThemeEventArgs(new Color32(102, 102, 102, 255), new Color32(51, 255, 0, 255)),
+        new ThemeEventArgs(new Color32(244, 93, 102, 255), new Color32(102, 0, 153, 255)),
     };
 }

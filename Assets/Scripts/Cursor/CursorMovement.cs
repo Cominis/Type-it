@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class CursorMovement : MonoBehaviour
 {
@@ -26,9 +24,9 @@ public class CursorMovement : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.Backspace))
         {
-            _cursorPositioning.DeleteCharacter();    //todo: cursor sounds
-            //play delete sound
+            _cursorPositioning.DeleteCharacter();    //todo: cursor sounds differ
+            //play different sound
         }
-        
+
     }
 }
