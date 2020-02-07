@@ -12,7 +12,7 @@ public class Follow : MonoBehaviour
     private float _maxX;
     private float _minY;
     private float _maxY;
-    //todo: add scripts to wall and camera when fixed
+
     void Start()
     {
         _velocity = Vector3.zero;
@@ -29,7 +29,7 @@ public class Follow : MonoBehaviour
 
     void Update()
     {
-        //todo: fix it for smooth movement
+        
         Vector3 v3 = FollowObject.transform.position;
 
         float x = v3.x;
@@ -46,6 +46,8 @@ public class Follow : MonoBehaviour
             y = _maxY;
 
         transform.position = new Vector3(x, y, CameraProps.ZPosition);
+
+        //todo: fix it for smooth cemera movement
         //target = new Vector3(x, y, _offsetZ);
 
         //transform.position = Vector3.SmoothDamp(

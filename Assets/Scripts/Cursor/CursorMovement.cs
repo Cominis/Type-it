@@ -14,18 +14,19 @@ public class CursorMovement : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.LeftArrow) && _cursorPositioning.MoveBackward())
             {
-                //play typed sound
+                //play typed sound?
             }
 
             if (Input.GetKeyDown(KeyCode.RightArrow) && _cursorPositioning.MoveForward())
             {
-                //play back sound
+                //play back sound?
             }
         }
         if (Input.GetKeyDown(KeyCode.Backspace))
         {
-            _cursorPositioning.DeleteCharacter();    //todo: cursor sounds differ
-            //play different sound
+            _cursorPositioning.DeleteCharacter();    //todo: cursor sounds differ?
+            //play different sound?
+
         }
 
     }

@@ -7,7 +7,12 @@ public class EndManager : MonoBehaviour
     public GameObject right;
     public GameObject wrong;
     public string word;
+    private ThemesManager _themesManager;
 
+    private void Start()
+    {
+        _themesManager = GetComponent<ThemesManager>();
+    }
     public void EndGame()
     {
         StartCoroutine(Ending());
@@ -24,18 +29,21 @@ public class EndManager : MonoBehaviour
         player.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
 
         var collectedWord = CursorPositioning.Characters;
-
+        var textColor = Utils.Themes[_themesManager.CurrentThemeIndex].TextColor;
         for (int i = 0; i < collectedWord.Count; i++)
         {
             var collectedLetter = collectedWord[i];
+            GameObject obj;
             if (i < word.Length && word[i] == collectedLetter.GetComponent<TextMeshPro>().text[0])
             {
-                Instantiate(right, collectedLetter.transform.position + new Vector3(0, -3, 0), new Quaternion(0, 0, 0, 0));
+                obj = Instantiate(right, collectedLetter.transform.position + new Vector3(0, -3, 0), new Quaternion(0, 0, 0, 0));
             }
             else
             {
-                Instantiate(wrong, collectedLetter.transform.position + new Vector3(0, -3, 0), new Quaternion(0, 0, 0, 0));
+                obj = Instantiate(wrong, collectedLetter.transform.position + new Vector3(0, -3, 0), new Quaternion(0, 0, 0, 0));
             }
+
+            obj.GetComponent<SpriteRenderer>().color = textColor;
             yield return new WaitForSeconds(0.5f);
         }
 

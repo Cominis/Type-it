@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class ThemesManager : MonoBehaviour
 {
     public GameObject theme;
-    public int CurrentThemeIndex { get; set; }
+    public int CurrentThemeIndex { get; set; } = 0;
 
     public ThemeEventArgs CurrentTheme { get; set; } = Utils.Themes[0];
     void Awake()

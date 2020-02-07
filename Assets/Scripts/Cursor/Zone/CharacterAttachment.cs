@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class CharacterAttachment : MonoBehaviour
 {
-    //todo: make this script on zone
     private static Dictionary<char, List<Transform>> __charactersInZone;
     private bool _isUpperCase = false;
     private CursorPositioning _cursorPositioning;

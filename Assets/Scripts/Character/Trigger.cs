@@ -5,24 +5,13 @@ using UnityEngine;
 
 public class Trigger : MonoBehaviour
 {
-    //todo: disabled when tag is changed
-    [SerializeField]
-    private float _speed;
-
-    private char _character;
-
-    public float Speed { get => _speed; set => _speed = value; }
-    public Vector3 ToPosition { get; set; }
-    public bool IsToChangePosition { get; set; } = false;
-
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.tag == Tags.ACTIVE_ZONE && transform.tag == Tags.LOOSE_LETTER)
         {
-            _character = transform.GetComponent<TextMeshPro>().text[0]; //todo: takes only one time
-
             //to activate input
-            CharacterAttachment.ActivateLetter(_character, transform);
+            CharacterAttachment.ActivateLetter(transform.GetComponent<TextMeshPro>().text[0], transform);
+            //todo: assign character only one time, not in trigger ? do I need asignment?
         }
     }
 
@@ -31,21 +20,7 @@ public class Trigger : MonoBehaviour
         if (other.tag == Tags.ACTIVE_ZONE && transform.tag == Tags.LOOSE_LETTER)
         {
             //to deactivate input
-            CharacterAttachment.DeactivateLetter(_character, transform);
-        }
-    }
-
-    private void Update()
-    {
-        if (IsToChangePosition)
-        {
-            if (Vector3.Distance(transform.localPosition, ToPosition) < 0.1 && transform.eulerAngles.z < 1 && transform.eulerAngles.z > -1)
-            {
-                IsToChangePosition = false;
-            }
-
-            transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0, 0, 0), Speed * Time.deltaTime);
-            transform.localPosition = Vector3.MoveTowards(transform.localPosition, ToPosition, Speed * Time.deltaTime);
+            CharacterAttachment.DeactivateLetter(transform.GetComponent<TextMeshPro>().text[0], transform);
         }
     }
 }
