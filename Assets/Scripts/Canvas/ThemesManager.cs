@@ -8,6 +8,7 @@ public class ThemesManager : MonoBehaviour
     public GameObject theme;
     public int CurrentThemeIndex { get; set; } = 0;
 
+    public Texture2D cursorTexture;
     public ThemeEventArgs CurrentTheme { get; set; } = Utils.Themes[0];
     void Awake()
     {
@@ -26,6 +27,20 @@ public class ThemesManager : MonoBehaviour
     {
         CurrentThemeIndex = themeIndex;
         Camera.main.backgroundColor = Utils.Themes[themeIndex].BackgraoundColor;
+        SetCursorColor(themeIndex);
         ThemeChanged?.Invoke(null, themeIndex);
+    }
+
+    private void SetCursorColor(int themeIndex)
+    {
+        var colors = cursorTexture.GetPixels32();
+        for (int i = 0; i < colors.Length; i++)
+        {
+            var alpha = colors[i].a;
+            colors[i] = Utils.Themes[themeIndex].TextColor;
+            colors[i].a = alpha;
+        }
+        cursorTexture.SetPixels32(colors);
+        Cursor.SetCursor(cursorTexture, new Vector2(2, 2), CursorMode.Auto);
     }
 }
