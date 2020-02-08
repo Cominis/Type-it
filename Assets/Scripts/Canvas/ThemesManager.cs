@@ -20,24 +20,27 @@ public class ThemesManager : MonoBehaviour
             button.transform.GetChild(0).GetComponent<Image>().color = Utils.Themes[i].BackgraoundColor;
             button.transform.GetChild(1).GetComponent<Image>().color = Utils.Themes[i].TextColor;
         }
+
+        SetCursorColor();
     }
 
     public event EventHandler<int> ThemeChanged;
     public void OnThemeChanged(int themeIndex)
     {
         CurrentThemeIndex = themeIndex;
+        CurrentTheme = Utils.Themes[themeIndex]; //todo: is it nessasary?
         Camera.main.backgroundColor = Utils.Themes[themeIndex].BackgraoundColor;
-        SetCursorColor(themeIndex);
+        SetCursorColor();
         ThemeChanged?.Invoke(null, themeIndex);
     }
 
-    private void SetCursorColor(int themeIndex)
+    private void SetCursorColor()
     {
         var colors = cursorTexture.GetPixels32();
         for (int i = 0; i < colors.Length; i++)
         {
             var alpha = colors[i].a;
-            colors[i] = Utils.Themes[themeIndex].TextColor;
+            colors[i] = Utils.Themes[CurrentThemeIndex].TextColor;
             colors[i].a = alpha;
         }
         cursorTexture.SetPixels32(colors);

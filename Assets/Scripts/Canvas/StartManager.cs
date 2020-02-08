@@ -73,11 +73,11 @@ public class StartManager : MonoBehaviour
             GameObject typedCharacter = Instantiate(character, new Vector3(x, y, 0), Quaternion.identity);
             typedCharacter.GetComponent<TextMeshPro>().text = Constants.characters[UnityEngine.Random.Range(0, Constants.characters.Length)].ToString();
             yield return new WaitForEndOfFrame();
+            typedCharacter.GetComponent<TextMeshPro>().color = _themesManager.CurrentTheme.TextColor;
             var boxCollider = typedCharacter.AddComponent<BoxCollider2D>();
             var letterClass = typedCharacter.GetComponent<Character>();
             letterClass.CharacterLength = boxCollider.bounds.size.x;
             boxCollider.sharedMaterial = letterClass.Material;  //todo: material is added only in this class
-          //typedLetter.GetComponent<TextMeshPro>().color = new Color(let.GetComponent<TextMeshPro>().color.r, let.GetComponent<TextMeshPro>().color.g, let.GetComponent<TextMeshPro>().color.b, 0);
 
             typedCharacter.GetComponent<RandomMovement>().Move();
         }
@@ -90,12 +90,11 @@ public class StartManager : MonoBehaviour
     {
         yield return new WaitForEndOfFrame();
 
+        typedCharacter.GetComponent<TextMeshPro>().color = _themesManager.CurrentTheme.TextColor;
         var boxCollider = typedCharacter.AddComponent<BoxCollider2D>();
         var letterClass = typedCharacter.GetComponent<Character>();
         letterClass.CharacterLength = boxCollider.bounds.size.x;
         _cursorPositioning.AddCharacterInstantly(typedCharacter.transform);
         boxCollider.sharedMaterial = letterClass.Material;
-        //typedLetter.GetComponent<TextMeshPro>().color = new Color(let.GetComponent<TextMeshPro>().color.r, let.GetComponent<TextMeshPro>().color.g, let.GetComponent<TextMeshPro>().color.b, 0);
-        //todo: change color of new character
     }
 }

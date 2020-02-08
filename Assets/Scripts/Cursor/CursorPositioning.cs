@@ -142,8 +142,10 @@ public class CursorPositioning : MonoBehaviour
     private void DestroyCharacter()
     {
         Characters[_currentCharacterIndex].tag = Tags.LOOSE_LETTER;
-        Destroy(Characters[_currentCharacterIndex].gameObject);
+        var gameObject = Characters[_currentCharacterIndex].gameObject;
         Characters.RemoveAt(_currentCharacterIndex);
+        Destroy(gameObject);
+        
     }
 
     private void InvokePositioning(Transform transform, float xAxisPosition)

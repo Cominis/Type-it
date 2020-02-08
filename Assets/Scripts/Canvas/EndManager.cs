@@ -20,6 +20,8 @@ public class EndManager : MonoBehaviour
 
     IEnumerator Ending()
     {
+        Camera.main.GetComponent<AudioSource>().Stop();
+
         foreach (GameObject looseLetter in GameObject.FindGameObjectsWithTag(Tags.LOOSE_LETTER))
             Destroy(looseLetter);
 

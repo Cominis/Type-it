@@ -7,9 +7,11 @@ public class SpriteColorChanger : MonoBehaviour
 
     void Start()
     {
+        
         _spriteRenderer = GetComponent<SpriteRenderer>();
         _themeManager = GameObject.FindGameObjectWithTag(Tags.GAME_CONTROLLER).GetComponent<ThemesManager>();
         _themeManager.ThemeChanged += ChangeTheme;
+        _spriteRenderer.color = _themeManager.CurrentTheme.TextColor;
     }
 
     private void ChangeTheme(object obj, int themeIndex)
