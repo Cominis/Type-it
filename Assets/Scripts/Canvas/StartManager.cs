@@ -77,14 +77,14 @@ public class StartManager : MonoBehaviour
             var boxCollider = typedCharacter.AddComponent<BoxCollider2D>();
             var letterClass = typedCharacter.GetComponent<Character>();
             letterClass.CharacterLength = boxCollider.bounds.size.x;
-            boxCollider.sharedMaterial = letterClass.Material;  //todo: material is added only in this class
+            //boxCollider.sharedMaterial = letterClass.Material;  //todo: material is added only in this class
 
             typedCharacter.GetComponent<RandomMovement>().Move();
         }
     }
     private void InstantiateTimer()
     {
-        transform.GetChild(1).GetComponent<Timer>().SetClockAndStart(60f); //todo: do something with timer
+        transform.GetChild(1).GetComponent<Timer>().SetClockAndStart(3599f); //todo: do something with timer
     }
     IEnumerator SetupCharacter(GameObject typedCharacter)
     {
@@ -95,6 +95,6 @@ public class StartManager : MonoBehaviour
         var letterClass = typedCharacter.GetComponent<Character>();
         letterClass.CharacterLength = boxCollider.bounds.size.x;
         _cursorPositioning.AddCharacterInstantly(typedCharacter.transform);
-        boxCollider.sharedMaterial = letterClass.Material;
+       // boxCollider.sharedMaterial = letterClass.Material;
     }
 }

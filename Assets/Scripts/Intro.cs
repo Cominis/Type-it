@@ -9,8 +9,8 @@ public class Intro : MonoBehaviour
     private VideoPlayer _intro;
     void Awake()
     {
-
-        _intro = GameObject.FindGameObjectWithTag(Tags.MAIN_CAMERA).GetComponent<VideoPlayer>();
+        Cursor.visible = false;
+        _intro = Camera.main.GetComponent<VideoPlayer>();
         _intro.loopPointReached += EndReached;
         _intro.Prepare();
     }

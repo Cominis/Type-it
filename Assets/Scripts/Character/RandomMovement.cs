@@ -10,8 +10,8 @@ public class RandomMovement : MonoBehaviour
     private float _speedX = 0f;
     private float _speedY = 0f;
 
-    private const float MIN_SPEED = 0.5f;
-    private const float MAX_SPEED = 2f;
+    private const float MIN_SPEED = 0.001f;
+    private const float MAX_SPEED = 0.002f;
 
     private void FixedUpdate()
     {
@@ -32,5 +32,6 @@ public class RandomMovement : MonoBehaviour
     private IEnumerator StopMoving()
     {
         yield return new WaitForSeconds(3f);
+        //enabled = false;
     }
 }

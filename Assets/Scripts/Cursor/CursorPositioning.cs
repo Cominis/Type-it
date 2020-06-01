@@ -64,8 +64,9 @@ public class CursorPositioning : MonoBehaviour
                 targetWord = string.Concat(targetWord, character.GetComponent<TextMeshPro>().text);
 
                 var rb2d = character.gameObject.AddComponent<Rigidbody2D>();
-                rb2d.gravityScale = 0;
-                rb2d.mass = 0.1f;
+                rb2d.angularDrag = 0f;
+                rb2d.mass = 0.0001f;
+                rb2d.collisionDetectionMode = CollisionDetectionMode2D.Continuous;
 
                 character.GetComponent<RandomMovement>().Move();
             }
